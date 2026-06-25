@@ -7,6 +7,8 @@ import { playClickSound, playLevelUpSound } from '@/lib/audio';
 import { useEffect } from 'react';
 import { useGame } from '@/context/GameStateContext';
 import { i18n } from '@/lib/i18n';
+import { Button } from '@/components/ui/Button';
+import { Card, CardContent } from '@/components/ui/Card';
 
 export default function Home() {
   const router = useRouter();
@@ -25,7 +27,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground relative overflow-hidden game-grid font-mono">
+    <div className="flex flex-col min-h-screen bg-background text-foreground relative overflow-hidden game-grid font-sans">
       
       {/* Background glowing elements */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-retro-orange/10 rounded-full blur-[100px] pointer-events-none" />
@@ -34,22 +36,22 @@ export default function Home() {
       {/* Main hero area */}
       <div className="flex-1 max-w-5xl mx-auto px-6 py-16 md:py-24 flex flex-col items-center justify-center text-center relative z-10">
         
-        {/* Magic Icon Container (Pixel Box) */}
+        {/* Magic Icon Container */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 15 }}
-          className="w-20 h-20 bg-slate-900 border-4 border-double border-retro-orange flex items-center justify-center shadow-[4px_4px_0px_#000] mb-8"
+          className="w-20 h-20 bg-pop-orange/20 border-[3px] border-border rounded-full flex items-center justify-center shadow-[4px_4px_0px_var(--shadow-color)] mb-8"
         >
           <Sparkles className="w-10 h-10 text-retro-orange animate-pulse" />
         </motion.div>
 
-        {/* Title (Pixel styled font) */}
+        {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-3xl md:text-6xl font-game font-bold tracking-wider text-retro-orange mb-6 uppercase drop-shadow-[4px_4px_0px_#000]"
+          className="text-4xl md:text-7xl font-game font-extrabold tracking-wide text-retro-orange mb-6 uppercase drop-shadow-[4px_4px_0px_var(--shadow-color)]"
         >
           JS / TS QUEST
         </motion.h1>
@@ -59,29 +61,29 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-slate-400 text-xs md:text-sm max-w-2xl leading-relaxed mb-12 border-y-2 border-indigo-950/20 py-4"
+          className="text-slate-600 dark:text-slate-400 text-xs md:text-sm max-w-2xl leading-relaxed mb-12 border-y-[3px] border-dashed border-border-muted py-6 font-semibold"
         >
           {t.homeSubtitle}
         </motion.p>
 
-        {/* Start Button (Pixel Theme) */}
+        {/* Start Button */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.6 }}
           className="mb-16"
         >
-          <button
+          <Button
             onClick={handleStart}
-            className="group px-8 py-5 rounded bg-retro-orange hover:bg-retro-orange/90 text-white font-game text-xs font-bold shadow-[4px_4px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#000] active:translate-x-1 active:translate-y-1 active:shadow-none border-2 border-retro-peach/40 relative overflow-hidden transition-all cursor-pointer"
+            variant="primary"
+            size="lg"
+            className="px-10 py-5 rounded-2xl text-xs"
           >
-            <span className="flex items-center gap-3">
-              {t.homeStartBtn}
-            </span>
-          </button>
+            {t.homeStartBtn}
+          </Button>
         </motion.div>
 
-        {/* Feature Cards Grid (Pixel Box styles) */}
+        {/* Feature Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-8">
           
           {/* Card 1 */}
@@ -90,15 +92,19 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="p-6 pixel-box text-left group"
+            className="flex hover:rotate-1 transition-transform"
           >
-            <div className="w-10 h-10 rounded bg-retro-pink/10 border-2 border-retro-pink/20 flex items-center justify-center text-retro-pink mb-4 group-hover:scale-115 transition">
-              <Terminal className="w-5 h-5" />
-            </div>
-            <h3 className="text-sm font-game font-bold text-foreground mb-3 tracking-wide">{t.featSkillTree}</h3>
-            <p className="text-[11px] text-slate-400 leading-relaxed font-mono">
-              {t.featSkillTreeDesc}
-            </p>
+            <Card variant="pink" className="text-left group cursor-pointer w-full flex flex-col">
+              <CardContent className="pt-2">
+                <div className="w-12 h-12 rounded-full bg-card border-[3px] border-border flex items-center justify-center text-retro-pink mb-4 group-hover:scale-110 transition shadow-[2px_2px_0px_var(--shadow-color)]">
+                  <Terminal className="w-5 h-5 stroke-[2.5]" />
+                </div>
+                <h3 className="text-sm font-game font-extrabold text-slate-900 mb-3 tracking-wide uppercase">{t.featSkillTree}</h3>
+                <p className="text-[11px] text-slate-700 leading-relaxed font-semibold">
+                  {t.featSkillTreeDesc}
+                </p>
+              </CardContent>
+            </Card>
           </motion.div>
 
           {/* Card 2 */}
@@ -107,15 +113,19 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="p-6 pixel-box border-indigo-500 text-left group"
+            className="flex hover:-rotate-1 transition-transform"
           >
-            <div className="w-10 h-10 rounded bg-indigo-500/10 border-2 border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-4 group-hover:scale-115 transition">
-              <Flame className="w-5 h-5" />
-            </div>
-            <h3 className="text-sm font-game font-bold text-foreground mb-3 tracking-wide">{t.featSandbox}</h3>
-            <p className="text-[11px] text-slate-400 leading-relaxed font-mono">
-              {t.featSandboxDesc}
-            </p>
+            <Card variant="yellow" className="text-left group cursor-pointer w-full flex flex-col">
+              <CardContent className="pt-2">
+                <div className="w-12 h-12 rounded-full bg-card border-[3px] border-border flex items-center justify-center text-retro-orange mb-4 group-hover:scale-110 transition shadow-[2px_2px_0px_var(--shadow-color)]">
+                  <Flame className="w-5 h-5 stroke-[2.5]" />
+                </div>
+                <h3 className="text-sm font-game font-extrabold text-slate-900 mb-3 tracking-wide uppercase">{t.featSandbox}</h3>
+                <p className="text-[11px] text-slate-700 leading-relaxed font-semibold">
+                  {t.featSandboxDesc}
+                </p>
+              </CardContent>
+            </Card>
           </motion.div>
 
           {/* Card 3 */}
@@ -124,15 +134,19 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
-            className="p-6 pixel-box border-cyan-500 text-left group"
+            className="flex hover:rotate-1 transition-transform"
           >
-            <div className="w-10 h-10 rounded bg-cyan-500/10 border-2 border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-115 transition">
-              <Trophy className="w-5 h-5" />
-            </div>
-            <h3 className="text-sm font-game font-bold text-foreground mb-3 tracking-wide">{t.featBoss}</h3>
-            <p className="text-[11px] text-slate-400 leading-relaxed font-mono">
-              {t.featBossDesc}
-            </p>
+            <Card variant="green" className="text-left group cursor-pointer w-full flex flex-col">
+              <CardContent className="pt-2">
+                <div className="w-12 h-12 rounded-full bg-card border-[3px] border-border flex items-center justify-center text-emerald-600 mb-4 group-hover:scale-110 transition shadow-[2px_2px_0px_var(--shadow-color)]">
+                  <Trophy className="w-5 h-5 stroke-[2.5]" />
+                </div>
+                <h3 className="text-sm font-game font-extrabold text-slate-900 mb-3 tracking-wide uppercase">{t.featBoss}</h3>
+                <p className="text-[11px] text-slate-700 leading-relaxed font-semibold">
+                  {t.featBossDesc}
+                </p>
+              </CardContent>
+            </Card>
           </motion.div>
 
         </div>
@@ -140,7 +154,7 @@ export default function Home() {
       </div>
 
       {/* Footer bar */}
-      <footer className="py-8 border-t-4 border-border-muted bg-card/40 text-center text-[10px] text-slate-600 font-mono tracking-wider">
+      <footer className="py-8 border-t-[3px] border-border bg-card text-center text-[10px] text-slate-500 font-game font-extrabold tracking-wider uppercase shadow-[0_-4px_0px_var(--shadow-color)] z-10">
         {t.footerText}
       </footer>
     </div>

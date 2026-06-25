@@ -10,6 +10,9 @@ import { i18n } from '@/lib/i18n';
 import { useState, useEffect } from 'react';
 import { PRESET_AVATARS, getAvatarSvg } from '@/lib/avatars';
 import { playClickSound, playLevelUpSound } from '@/lib/audio';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Progress } from '@/components/ui/Progress';
 
 interface Badge {
   id: string;
@@ -47,7 +50,7 @@ export default function Dashboard() {
 
   if (!game.isLoaded) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-background font-mono text-slate-500">
+      <div className="flex-1 flex items-center justify-center bg-background font-sans text-slate-500 font-bold uppercase">
         🧙‍♂️ Reading scroll of stats...
       </div>
     );
@@ -126,14 +129,14 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex-1 bg-background text-foreground py-12 px-6 md:px-12 flex flex-col items-center font-mono">
+    <div className="flex-1 bg-background text-foreground py-12 px-6 md:px-12 flex flex-col items-center font-sans">
       
       {/* Title */}
       <div className="text-center max-w-xl mb-12">
-        <h2 className="text-xl md:text-3xl font-game font-bold tracking-wide text-retro-orange mb-6 uppercase drop-shadow-[2px_2px_0px_#000]">
+        <h2 className="text-2xl md:text-4xl font-game font-extrabold text-foreground uppercase drop-shadow-[2px_2px_0px_var(--shadow-color)]">
           {t.statsTitle}
         </h2>
-        <p className="text-slate-400 text-xs leading-relaxed max-w-sm mx-auto">
+        <p className="text-xs text-slate-550 dark:text-slate-400 mt-4 leading-relaxed max-w-sm mx-auto font-bold uppercase tracking-wider">
           {t.statsDesc}
         </p>
       </div>
@@ -144,41 +147,43 @@ export default function Dashboard() {
         <div className="lg:col-span-1 space-y-6">
           
           {/* Editable RPG Status Card */}
-          <div className="p-6 pixel-box relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 opacity-5 text-retro-pink">
+          <Card variant="peach" className="relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-5 text-retro-pink pointer-events-none">
               <Star className="w-24 h-24" />
             </div>
 
             {/* Profile view or edit mode toggle */}
             {!isEditing ? (
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 border-2 border-retro-orange rounded bg-slate-900 overflow-hidden shrink-0">
+                <div className="w-14 h-14 border-[3px] border-border rounded-xl bg-slate-900 overflow-hidden shrink-0 shadow-[2px_2px_0px_var(--shadow-color)]">
                   {getAvatarSvg(game.avatarId, 'w-full h-full')}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-[10px] text-slate-500 font-bold uppercase">{t.charStatus}</h3>
-                  <h4 className="text-sm font-game font-bold text-foreground mt-1 truncate uppercase">
+                <div className="flex-1 min-w-0 text-slate-950">
+                  <h3 className="text-[10px] text-slate-700 font-bold uppercase tracking-wider">{t.charStatus}</h3>
+                  <h4 className="text-sm font-game font-extrabold text-slate-955 mt-1 truncate uppercase">
                     {game.nickname}
                   </h4>
-                  <p className="text-[9px] text-retro-pink mt-1 uppercase font-bold">
+                  <p className="text-[9px] text-retro-orange mt-1 uppercase font-extrabold tracking-wide">
                     {`LV.${game.level} // ${getLevelTitle(game.level)}`}
                   </p>
                 </div>
-                <button
+                <Button
                   onClick={handleToggleEdit}
-                  className="p-2 border border-slate-800 hover:border-retro-orange rounded bg-slate-900 text-slate-400 hover:text-white cursor-pointer active:translate-y-0.5"
+                  variant="outline"
+                  size="sm"
+                  className="p-2 border-2 border-border shadow-[1.5px_1.5px_0px_var(--shadow-color)]"
                   title="Configure Character"
                 >
-                  <Settings className="w-4 h-4" />
-                </button>
+                  <Settings className="w-4 h-4 stroke-[2.5]" />
+                </Button>
               </div>
             ) : (
-              <div className="space-y-4 mb-6 border-b border-indigo-950/40 pb-5">
+              <div className="space-y-4 mb-6 border-b-2 border-dashed border-border-muted pb-5 text-slate-950">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-game font-bold text-retro-pink uppercase">{t.editProfile}</h4>
+                  <h4 className="text-xs font-game font-extrabold text-retro-orange uppercase">{t.editProfile}</h4>
                   <button
                     onClick={handleToggleEdit}
-                    className="text-[10px] font-bold text-rose-400 hover:text-rose-300 underline cursor-pointer"
+                    className="text-[10px] font-bold text-slate-700 hover:text-slate-900 underline cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -186,19 +191,19 @@ export default function Dashboard() {
 
                 {/* Nickname Input */}
                 <div>
-                  <label className="text-[9px] text-slate-500 font-bold uppercase block mb-1.5">{t.nicknameLabel}</label>
+                  <label className="text-[9px] text-slate-700 font-extrabold uppercase block mb-1.5">{t.nicknameLabel}</label>
                   <input
                     type="text"
                     value={nickname}
                     onChange={(e) => setNickname(e.target.value.substring(0, 16))}
                     placeholder="Enter nickname..."
-                    className="w-full bg-slate-950 border-2 border-slate-900 p-2.5 rounded text-xs outline-none focus:border-retro-orange/40 text-slate-200"
+                    className="w-full bg-white border-[3px] border-border p-2.5 rounded-xl text-xs font-bold outline-none focus:border-retro-orange/40 text-slate-900"
                   />
                 </div>
 
                 {/* 8 preset avatar icons selectors grid */}
                 <div>
-                  <label className="text-[9px] text-slate-500 font-bold uppercase block mb-2">{t.selectAvatar}</label>
+                  <label className="text-[9px] text-slate-700 font-extrabold uppercase block mb-2">{t.selectAvatar}</label>
                   <div className="grid grid-cols-4 gap-2">
                     {PRESET_AVATARS.map((avatar) => {
                       const isSel = avatarId === avatar.id;
@@ -206,10 +211,10 @@ export default function Dashboard() {
                         <button
                           key={avatar.id}
                           onClick={() => { playClickSound(); setAvatarId(avatar.id); }}
-                          className={`p-1.5 rounded bg-slate-950 border-2 transition-all cursor-pointer ${
+                          className={`p-1.5 rounded-xl bg-white border-[3px] transition-all cursor-pointer ${
                             isSel 
-                              ? 'border-retro-orange shadow-[0_0_8px_rgba(255,106,28,0.4)] scale-105' 
-                              : 'border-slate-900 hover:border-slate-800'
+                              ? 'border-retro-orange shadow-[2px_2px_0px_var(--shadow-color)] scale-105' 
+                              : 'border-border-muted hover:border-border'
                           }`}
                           title={avatar.name}
                         >
@@ -220,110 +225,108 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <button
+                <Button
                   onClick={handleSaveProfile}
-                  className="w-full py-2.5 bg-retro-orange hover:bg-retro-orange/80 text-white font-game text-[9px] font-bold rounded border-2 border-retro-peach/40 pixel-btn active:translate-y-0.5 active:shadow-none cursor-pointer"
+                  variant="primary"
+                  className="w-full py-2.5"
                 >
                   {t.saveProfile}
-                </button>
+                </Button>
               </div>
             )}
 
-            <div className="space-y-4 text-[11px] font-bold uppercase text-slate-400">
-              <div className="flex justify-between border-b border-indigo-950/20 pb-2">
+            <div className="space-y-4 text-[11px] font-bold uppercase text-slate-800">
+              <div className="flex justify-between border-b-2 border-dashed border-border-muted pb-2">
                 <span>{t.totalExp}</span>
-                <span className="text-retro-orange font-bold">{game.xp} XP</span>
+                <span className="text-retro-orange font-extrabold">{game.xp} XP</span>
               </div>
               
-              <div className="flex justify-between border-b border-indigo-950/20 pb-2">
+              <div className="flex justify-between border-b-2 border-dashed border-border-muted pb-2">
                 <span>{t.nextRank}</span>
-                <span className="text-slate-300">{nextLevelXP - game.xp} {t.xpRemaining}</span>
+                <span className="text-slate-800 font-extrabold">{nextLevelXP - game.xp} {t.xpRemaining}</span>
               </div>
 
               <div>
-                <div className="flex justify-between text-[9px] text-slate-500 mb-1">
+                <div className="flex justify-between text-[9px] text-slate-700 mb-1.5 font-extrabold">
                   <span>{t.levelProgress}</span>
                   <span>{Math.round(xpPercentage)}%</span>
                 </div>
-                <div className="w-full h-3 bg-slate-950 border-2 border-slate-800 p-0.5 overflow-hidden">
-                  <div 
-                    className="h-full bg-retro-pink transition-all duration-300"
-                    style={{ width: `${xpPercentage}%` }}
-                  />
-                </div>
+                <Progress value={xpPercentage} color="pink" className="h-4" />
               </div>
             </div>
-          </div>
+          </Card>
 
           {/* Quest statistics */}
-          <div className="p-6 pixel-box font-bold uppercase text-[11px] space-y-4">
-            <h3 className="text-xs font-game font-bold text-foreground border-b border-indigo-950/20 pb-3 tracking-wider">{t.questLogs}</h3>
-            <div className="flex justify-between text-slate-400">
+          <Card variant="yellow" className="font-bold uppercase text-[11px] space-y-4">
+            <h3 className="text-xs font-game font-extrabold text-slate-955 border-b-2 border-dashed border-border-muted pb-3 tracking-wider">{t.questLogs}</h3>
+            <div className="flex justify-between text-slate-800 font-bold">
               <span>{t.jsCompleted}</span>
-              <span className="text-amber-400">{jsCompleted} / {jsLessons.length}</span>
+              <span className="text-slate-950 font-extrabold">{jsCompleted} / {jsLessons.length}</span>
             </div>
-            <div className="flex justify-between text-slate-400">
+            <div className="flex justify-between text-slate-800 font-bold">
               <span>{t.tsCompleted}</span>
-              <span className="text-cyan-400">{tsCompleted} / {tsLessons.length}</span>
+              <span className="text-slate-950 font-extrabold">{tsCompleted} / {tsLessons.length}</span>
             </div>
-            <div className="flex justify-between text-slate-400">
+            <div className="flex justify-between text-slate-800 font-bold">
               <span>{t.bossCompleted}</span>
-              <span className="text-rose-400">{bossesSlayed} / {challenges.length}</span>
+              <span className="text-slate-950 font-extrabold">{bossesSlayed} / {challenges.length}</span>
             </div>
-            <div className="flex justify-between border-t-2 border-indigo-950/20 pt-3 text-slate-300 font-bold">
+            <div className="flex justify-between border-t-2 border-dashed border-border-muted pt-3 text-slate-900 font-extrabold">
               <span>{t.totalCompleted}</span>
               <span>{totalCompleted} / {jsLessons.length + tsLessons.length + challenges.length}</span>
             </div>
-          </div>
+          </Card>
 
           {/* Account Profile Card */}
-          <div className="p-6 pixel-box space-y-4">
-            <h3 className="text-xs font-game font-bold text-foreground border-b border-indigo-950/20 pb-3 tracking-wider uppercase">
+          <Card variant="default" className="space-y-4">
+            <h3 className="text-xs font-game font-extrabold text-foreground border-b-2 border-dashed border-border-muted pb-3 tracking-wider uppercase">
               {game.language === 'vi' ? 'HỘI PHÁP SƯ 🔑' : 'GUILD ACCOUNT 🔑'}
             </h3>
             
             {game.isLoggedIn ? (
-              <div className="space-y-3 font-mono text-[11px]">
-                <div className="flex justify-between text-slate-400">
+              <div className="space-y-3 font-sans text-xs">
+                <div className="flex justify-between text-slate-550 dark:text-slate-400 font-bold uppercase">
                   <span>{game.language === 'vi' ? 'TRẠNG THÁI:' : 'STATUS:'}</span>
-                  <span className="text-emerald-400 font-bold uppercase">{game.language === 'vi' ? 'ĐÃ ĐỒNG BỘ ☁️' : 'CLOUD SYNCED ☁️'}</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-extrabold uppercase">{game.language === 'vi' ? 'ĐÃ ĐỒNG BỘ ☁️' : 'CLOUD SYNCED ☁️'}</span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-slate-550 dark:text-slate-400 font-bold uppercase">
                   <span>{game.language === 'vi' ? 'TÀI KHOẢN:' : 'ACCOUNT:'}</span>
-                  <span className="text-slate-200 font-bold truncate max-w-[150px]">{game.user?.email}</span>
+                  <span className="text-slate-800 dark:text-slate-200 font-extrabold truncate max-w-[150px]">{game.user?.email}</span>
                 </div>
-                <div className="text-[10px] text-slate-500 leading-relaxed pt-1">
+                <div className="text-[10px] text-slate-500 leading-relaxed pt-1 font-semibold uppercase tracking-wide">
                   {game.language === 'vi' 
                     ? 'Tiến trình của bạn đã được sao lưu tự động trên đám mây Supabase.' 
                     : 'Your spellcasting progress is securely backed up in the Supabase cloud.'}
                 </div>
-                <button
+                <Button
                   onClick={() => { playClickSound(); game.logout(); }}
-                  className="w-full mt-2 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 font-game text-[9px] font-bold rounded border-2 border-slate-800 pixel-btn active:translate-y-0.5 cursor-pointer"
+                  variant="outline"
+                  className="w-full mt-2 py-2.5 text-[10px]"
                 >
                   {game.language === 'vi' ? 'ĐĂNG XUẤT KHỎI HỘI' : 'LEAVE GUILD (LOGOUT)'}
-                </button>
+                </Button>
               </div>
             ) : (
-              <div className="space-y-3 font-mono text-[11px]">
-                <div className="flex justify-between text-slate-400">
+              <div className="space-y-3 font-sans text-xs">
+                <div className="flex justify-between text-slate-550 dark:text-slate-400 font-bold uppercase">
                   <span>{game.language === 'vi' ? 'TRẠNG THÁI:' : 'STATUS:'}</span>
-                  <span className="text-retro-orange font-bold uppercase">{game.language === 'vi' ? 'CHƯA ĐĂNG NHẬP ⚠️' : 'GUEST MODE ⚠️'}</span>
+                  <span className="text-retro-orange font-extrabold uppercase">{game.language === 'vi' ? 'CHƯA ĐĂNG NHẬP ⚠️' : 'GUEST MODE ⚠️'}</span>
                 </div>
-                <p className="text-[10px] text-slate-500 leading-relaxed">
+                <p className="text-[10px] text-slate-500 leading-relaxed font-semibold uppercase tracking-wide">
                   {game.language === 'vi'
                     ? 'Tiến trình hiện tại chỉ được lưu ở trình duyệt này. Hãy đăng nhập bằng Google hoặc tạo tài khoản để lưu trữ vĩnh viễn và đồng bộ trên mọi thiết bị!'
                     : 'Your progress is currently local-only. Register or log in via Google to sync your characters and streaks across all devices!'}
                 </p>
-                <button
+                <Button
                   onClick={() => { playClickSound(); game.setAuthModalOpen(true); }}
-                  className="w-full mt-2 py-2.5 bg-retro-orange hover:bg-retro-orange/90 text-white font-game text-[9px] font-bold rounded border-2 border-retro-peach/40 pixel-btn active:translate-y-0.5 cursor-pointer uppercase tracking-wider"
+                  variant="primary"
+                  className="w-full mt-2 py-2.5 text-[10px] tracking-wider"
                 >
                   {game.language === 'vi' ? 'ĐĂNG NHẬP / ĐĂNG KÝ 🔑' : 'SIGN IN / REGISTER 🔑'}
-                </button>
+                </Button>
               </div>
             )}
-          </div>
+          </Card>
 
         </div>
 
@@ -331,13 +334,13 @@ export default function Dashboard() {
         <div className="lg:col-span-2 space-y-6">
           
           {/* Streak tracker */}
-          <div className="p-6 pixel-box border-amber-500/20 bg-amber-950/5 relative overflow-hidden">
+          <Card variant="orange" className="relative overflow-hidden text-white">
             <div className="flex items-center gap-3 mb-4">
-              <Flame className="w-6 h-6 text-amber-500 animate-bounce" />
-              <h3 className="font-game text-xs font-bold text-amber-400 uppercase tracking-wide">{t.streakTitle}</h3>
+              <Flame className="w-6 h-6 text-white fill-white animate-bounce" />
+              <CardTitle className="text-white">{t.streakTitle}</CardTitle>
             </div>
-            <p className="text-[11px] text-slate-400 leading-relaxed mb-6 font-mono">
-              {t.streakDesc} <span className="text-amber-400 font-bold">{game.streak} {t.days.toLowerCase()}</span>.
+            <p className="text-xs text-orange-100 leading-relaxed mb-6 font-semibold uppercase tracking-wider">
+              {t.streakDesc} <span className="text-white font-extrabold">{game.streak} {t.days.toLowerCase()}</span>.
             </p>
 
             {/* Visual calendar streak timeline */}
@@ -348,12 +351,12 @@ export default function Dashboard() {
                 const dayNum = day.getDate();
 
                 return (
-                  <div key={idx} className="flex flex-col items-center gap-1.5 text-[9px] font-bold">
-                    <span className="text-slate-500">{dayLabel}</span>
-                    <div className={`w-9 h-9 border-2 flex items-center justify-center font-bold text-xs select-none ${
+                  <div key={idx} className="flex flex-col items-center gap-1.5 text-[9px] font-extrabold uppercase">
+                    <span className="text-orange-100">{dayLabel}</span>
+                    <div className={`w-9 h-9 border-[3px] rounded-xl flex items-center justify-center font-extrabold text-xs select-none shadow-[2px_2px_0px_var(--shadow-color)] ${
                       isActive 
-                        ? 'bg-amber-500/10 border-amber-500 text-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.2)]' 
-                        : 'bg-slate-950 border-slate-900 text-slate-600'
+                        ? 'bg-pop-yellow text-slate-900 border-border' 
+                        : 'bg-[#140b07]/50 border-orange-900/40 text-orange-300'
                     }`}>
                       {dayNum}
                     </div>
@@ -361,11 +364,11 @@ export default function Dashboard() {
                 );
               })}
             </div>
-          </div>
+          </Card>
 
           {/* Achievements list */}
-          <div className="p-6 pixel-box">
-            <h3 className="text-xs font-game font-bold text-foreground border-b border-indigo-950/20 pb-3 uppercase tracking-wider mb-5 flex items-center gap-2">
+          <Card variant="default">
+            <h3 className="text-xs font-game font-extrabold text-foreground border-b-2 border-dashed border-border-muted pb-3 uppercase tracking-wider mb-5 flex items-center gap-2">
               <Trophy className="w-4 h-4 text-retro-pink" />
               {t.accomplishments}
             </h3>
@@ -377,43 +380,43 @@ export default function Dashboard() {
                 return (
                   <div 
                     key={badge.id}
-                    className={`flex items-start gap-4 p-4 border-2 transition duration-200 ${
+                    className={`flex items-start gap-4 p-4 border-[3px] rounded-2xl transition duration-200 shadow-[2px_2px_0px_var(--shadow-color)] ${
                       isUnlocked
-                        ? 'bg-slate-900/60 border-retro-orange/20 text-slate-100'
-                        : 'bg-slate-950/40 border-slate-900 opacity-50 text-slate-500'
+                        ? 'bg-card border-border text-foreground'
+                        : 'bg-card/50 border-border-muted opacity-50 text-slate-500'
                     }`}
                   >
-                    <div className={`w-11 h-11 border-2 flex items-center justify-center shrink-0 ${
+                    <div className={`w-11 h-11 border-[3px] rounded-xl flex items-center justify-center shrink-0 shadow-[1.5px_1.5px_0px_var(--shadow-color)] ${
                       isUnlocked
-                        ? 'bg-retro-orange/10 border-retro-orange/30 text-retro-orange'
-                        : 'bg-slate-900 border-slate-800 text-slate-600'
+                        ? 'bg-pop-yellow text-slate-900 border-border'
+                        : 'bg-background border-border-muted text-slate-500'
                     }`}>
-                      <Trophy className={`w-5 h-5 ${isUnlocked ? 'animate-pulse' : ''}`} />
+                      <Trophy className={`w-5 h-5 ${isUnlocked ? 'animate-pulse' : ''} stroke-[2.5]`} />
                     </div>
 
-                    <div className="flex-1 font-mono">
+                    <div className="flex-1 font-sans text-xs">
                       <div className="flex items-center justify-between">
-                        <h4 className={`text-[11px] font-bold ${isUnlocked ? 'text-retro-yellow' : 'text-slate-500'}`}>
+                        <h4 className={`text-xs font-game font-extrabold ${isUnlocked ? 'text-retro-orange' : 'text-slate-500'}`}>
                           {getBadgeName(badge.nameKey)}
                         </h4>
                         {isUnlocked ? (
-                          <span className="text-[8px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.2 rounded border border-emerald-500/20 uppercase tracking-wider">
+                          <span className="text-[8px] font-game font-extrabold text-emerald-800 dark:text-emerald-300 bg-pop-green border-2 border-border px-1.5 py-0.2 rounded-full uppercase tracking-wider">
                             UNLOCKED
                           </span>
                         ) : (
-                          <span className="text-[8px] font-bold text-slate-600 uppercase tracking-wider">
+                          <span className="text-[8px] font-game font-extrabold text-slate-500 border-2 border-border-muted px-1.5 py-0.2 rounded-full uppercase tracking-wider">
                             LOCKED
                           </span>
                         )}
                       </div>
-                      <p className="text-[10px] text-slate-400 mt-1.5 leading-relaxed">{getBadgeDesc(badge.id)}</p>
-                      <p className="text-[9px] text-slate-500 mt-1.5 uppercase font-bold">Requirement: {getBadgeReq(badge.requirementKey)}</p>
+                      <p className="text-xs text-slate-550 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">{getBadgeDesc(badge.id)}</p>
+                      <p className="text-[9px] text-slate-500 mt-1.5 uppercase font-bold tracking-wider">Requirement: {getBadgeReq(badge.requirementKey)}</p>
                     </div>
                   </div>
                 );
               })}
             </div>
-          </div>
+          </Card>
 
         </div>
 

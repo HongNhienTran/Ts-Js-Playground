@@ -7,6 +7,8 @@ import SoundToggle from './SoundToggle';
 import { playClickSound } from '@/lib/audio';
 import { Language, i18n } from '@/lib/i18n';
 import { getAvatarSvg } from '@/lib/avatars';
+import { Button } from './ui/Button';
+import { Progress } from './ui/Progress';
 
 interface GameStatusProps {
   xp: number;
@@ -69,25 +71,25 @@ export default function GameStatus({
   };
 
   return (
-    <div className="w-full bg-card border-b-4 border-retro-peach/30 py-3 px-4 md:px-6 sticky top-0 z-50 shadow-[0_4px_20px_var(--shadow-color)]">
+    <div className="w-full bg-card border-b-[3px] border-border py-3 px-4 md:px-8 sticky top-0 z-50 shadow-[0_4px_0px_var(--shadow-color)]">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         
-        {/* Left: Player Profile, Title & Stats */}
+        {/* Left: Player Profile & Stats */}
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-3">
-            {/* Display SVG avatar */}
-            <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0 border-2 border-retro-orange shadow-[2px_2px_0px_#000] bg-slate-900">
+            {/* Round Avatar Container */}
+            <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 border-[3px] border-border shadow-[2px_2px_0px_var(--shadow-color)] bg-card">
               {getAvatarSvg(avatarId, 'w-full h-full')}
             </div>
             
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-white font-mono text-sm tracking-wide">{nickname}</span>
-                <span className="text-[9px] font-game px-2 py-0.5 rounded bg-retro-orange/10 text-retro-orange border border-retro-orange/30">
+                <span className="font-game font-extrabold text-foreground text-sm tracking-wide uppercase">{nickname}</span>
+                <span className="text-[9px] font-game px-2 py-0.5 rounded-full bg-retro-orange text-white border-2 border-border font-bold">
                   LV.{level}
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 font-mono mt-0.5 uppercase">
+              <p className="text-[10px] text-slate-500 font-sans mt-0.5 uppercase font-bold tracking-wider">
                 {getLevelTitle(level)}
               </p>
             </div>
@@ -95,44 +97,39 @@ export default function GameStatus({
 
           {/* Streak indicator */}
           <div 
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded border-2 font-mono text-xs ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border-[3px] border-border font-game text-xs font-extrabold uppercase shadow-[2px_2px_0px_var(--shadow-color)] ${
               streak > 0 
-                ? 'bg-amber-500/10 border-amber-500/30 text-amber-400' 
-                : 'bg-slate-900 border-slate-800 text-slate-600'
+                ? 'bg-pop-yellow text-slate-900' 
+                : 'bg-card text-slate-400'
             }`}
           >
-            <Flame className={`w-4 h-4 ${streak > 0 ? 'animate-bounce text-amber-500' : ''}`} />
-            <span className="font-bold">{streak} {t.streak.toUpperCase()}</span>
+            <Flame className={`w-4 h-4 ${streak > 0 ? 'animate-bounce text-retro-orange' : ''}`} />
+            <span>{streak} {t.streak}</span>
           </div>
         </div>
 
-        {/* Center: XP Progress Bar (Retro) */}
-        <div className="w-full md:max-w-xs flex-1 flex flex-col gap-1">
-          <div className="flex justify-between font-mono text-[9px] text-slate-500">
+        {/* Center: XP Progress Bar (Brutalist style) */}
+        <div className="w-full md:max-w-xs flex-1 flex flex-col gap-1.5">
+          <div className="flex justify-between font-game text-[9px] font-extrabold text-slate-500 uppercase tracking-wider">
             <span>XP: {xp} / {nextLevelXP}</span>
             <span>{Math.round(xpPercentage)}%</span>
           </div>
-          <div className="w-full h-3 bg-slate-900 border-2 border-slate-800 p-0.5 overflow-hidden">
-            <div 
-              className="h-full bg-retro-orange transition-all duration-500"
-              style={{ width: `${xpPercentage}%` }}
-            />
-          </div>
+          <Progress value={xpPercentage} color="primary" />
         </div>
 
-        {/* Right: Lives, Language flag toggle & Sound */}
+        {/* Right: Lives, Language & Sound Controls */}
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
           
           {/* Hearts / Lives */}
           <div className="flex items-center gap-1.5">
-            <div className="flex items-center gap-0.5">
+            <div className="flex items-center gap-1">
               {[1, 2, 3].map((heartIdx) => (
                 <Heart
                   key={heartIdx}
                   className={`w-5 h-5 transition-all duration-300 ${
                     heartIdx <= lives
-                      ? 'fill-red-500 text-red-500 drop-shadow-[0_0_4px_rgba(239,68,68,0.5)]'
-                      : 'text-slate-800 scale-90 opacity-30'
+                      ? 'fill-red-500 text-red-500 drop-shadow-[1px_1px_0px_#000]'
+                      : 'text-slate-300 dark:text-slate-800 scale-90 opacity-20'
                   }`}
                 />
               ))}
@@ -144,15 +141,15 @@ export default function GameStatus({
                   onClick={handleHeal}
                   onMouseEnter={() => setShowHealTooltip(true)}
                   onMouseLeave={() => setShowHealTooltip(false)}
-                  className="flex items-center justify-center text-emerald-400 hover:text-emerald-300 p-0.5 rounded border border-emerald-500/20 bg-emerald-950/20 transition-all cursor-pointer"
+                  className="flex items-center justify-center text-emerald-500 hover:text-emerald-400 p-0.5 rounded-full border-2 border-border bg-pop-green transition-all cursor-pointer shadow-[1px_1px_0px_var(--shadow-color)] active:translate-y-0.5 active:shadow-none"
                 >
-                  <PlusCircle className="w-4 h-4 animate-pulse" />
+                  <PlusCircle className="w-4 h-4" />
                 </button>
                 
                 {showHealTooltip && (
-                  <div className="absolute right-0 top-8 bg-card border-2 border-emerald-500/40 text-emerald-300 text-[10px] px-2.5 py-1.5 rounded shadow-xl w-44 font-mono z-50">
+                  <div className="absolute right-0 top-8 bg-card border-[3px] border-border text-foreground text-[10px] px-3 py-2 rounded-xl shadow-[4px_4px_0px_var(--shadow-color)] w-44 font-sans font-bold z-50">
                     {t.potionsUse}
-                    <div className="text-[9px] text-slate-500 mt-0.5">
+                    <div className="text-[9px] text-slate-500 mt-1 font-mediumNormal">
                       {xp >= 15 ? t.potionCost : t.potionReq}
                     </div>
                   </div>
@@ -162,41 +159,49 @@ export default function GameStatus({
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Account Status Badge */}
+            {/* Account Status */}
             {isLoggedIn ? (
               <div className="flex items-center gap-1.5">
-                <span className="hidden lg:inline text-[9px] text-slate-500 font-mono max-w-[100px] truncate" title={userEmail || ''}>
+                <span className="hidden lg:inline text-[9px] text-slate-500 font-sans max-w-[100px] truncate font-bold uppercase tracking-wider" title={userEmail || ''}>
                   {userEmail}
                 </span>
-                <button
+                <Button
                   onClick={onLogout}
-                  className="px-2 py-1.5 rounded border-2 border-slate-800 hover:border-retro-pink text-slate-400 hover:text-white font-mono text-[9px] font-bold bg-slate-900 cursor-pointer active:translate-y-0.5"
+                  variant="outline"
+                  size="sm"
+                  className="px-2.5 py-1.5 text-[9px]"
                 >
                   {language === 'vi' ? 'ĐĂNG XUẤT' : 'LOGOUT'}
-                </button>
+                </Button>
               </div>
             ) : (
-              <button
+              <Button
                 onClick={onOpenAuth}
-                className="px-2 py-1.5 rounded border-2 border-retro-orange bg-retro-orange/10 hover:bg-retro-orange text-retro-orange hover:text-white font-mono text-[9px] font-bold active:translate-y-0.5 cursor-pointer uppercase tracking-wider animate-pulse hover:animate-none"
+                variant="primary"
+                size="sm"
+                className="px-3 py-1.5 text-[9px]"
               >
                 {language === 'vi' ? 'ĐĂNG NHẬP 🔑' : 'SIGN IN 🔑'}
-              </button>
+              </Button>
             )}
 
-            {/* Language Flag Toggle */}
-            <button
+            {/* Language Toggle */}
+            <Button
               onClick={handleLangToggle}
-              className="p-1.5 rounded border-2 border-slate-800 hover:border-retro-orange text-slate-300 font-mono text-[10px] font-bold bg-slate-900 active:translate-y-0.5 cursor-pointer uppercase select-none"
+              variant="outline"
+              size="sm"
+              className="px-2 py-1.5 text-[9px]"
               title="Change Language"
             >
               {language === 'en' ? '🇻🇳 VI' : '🇺🇸 EN'}
-            </button>
+            </Button>
 
             {/* Theme Toggle (Dark / Light) */}
-            <button
+            <Button
               onClick={() => { playClickSound(); onToggleTheme(); }}
-              className="p-2 rounded border-2 border-slate-800 hover:border-retro-orange text-slate-300 bg-slate-900 active:translate-y-0.5 flex items-center justify-center cursor-pointer select-none"
+              variant="outline"
+              size="sm"
+              className="p-1.5 flex items-center justify-center shrink-0 w-8 h-8 rounded-xl"
               title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {theme === 'dark' ? (
@@ -204,7 +209,7 @@ export default function GameStatus({
               ) : (
                 <Moon className="w-4 h-4 text-retro-orange" />
               )}
-            </button>
+            </Button>
 
             {/* Sound Toggle */}
             <SoundToggle soundEnabled={soundEnabled} onToggle={onToggleSound} />

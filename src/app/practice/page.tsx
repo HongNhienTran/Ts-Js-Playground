@@ -8,6 +8,9 @@ import { jsLessons } from '@/data/jsLessons';
 import { tsLessons } from '@/data/tsLessons';
 import { playClickSound } from '@/lib/audio';
 import { i18n } from '@/lib/i18n';
+import { Card, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
+import { Progress } from '@/components/ui/Progress';
 
 export default function Practice() {
   const router = useRouter();
@@ -30,14 +33,14 @@ export default function Practice() {
   };
 
   return (
-    <div className="flex-1 bg-background text-foreground py-12 px-6 md:px-12 flex flex-col items-center font-mono">
+    <div className="flex-1 bg-background text-foreground py-12 px-6 md:px-12 flex flex-col items-center font-sans">
       
       {/* Title section */}
       <div className="text-center max-w-2xl mb-12">
-        <h2 className="text-xl md:text-3xl font-game font-bold tracking-wide text-retro-orange mb-6 uppercase drop-shadow-[2px_2px_0px_#000]">
+        <h2 className="text-2xl md:text-4xl font-game font-extrabold tracking-wide text-retro-orange mb-4 uppercase drop-shadow-[2px_2px_0px_var(--shadow-color)]">
           {t.practiceTitle}
         </h2>
-        <p className="text-slate-400 text-xs leading-relaxed max-w-lg mx-auto">
+        <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed max-w-md mx-auto font-bold uppercase tracking-wider">
           {t.practiceDesc}
         </p>
       </div>
@@ -47,140 +50,137 @@ export default function Practice() {
         
         {/* JS Track Card */}
         <motion.div
-          whileHover={{ y: -6 }}
+          whileHover={{ scale: 1.01 }}
           onClick={() => handleSelectTrack('js')}
-          className="p-6 pixel-box flex flex-col justify-between group relative overflow-hidden cursor-pointer"
+          className="flex hover:rotate-1 transition-transform cursor-pointer"
         >
-          {/* Highlight line */}
-          <div className="absolute left-0 top-0 right-0 h-1 bg-amber-500" />
-          
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="w-10 h-10 rounded bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20 group-hover:scale-110 transition">
-                <BookOpen className="w-5 h-5" />
-              </div>
-              <span className="text-[9px] font-game font-bold text-amber-500 border border-amber-500/30 px-2 py-0.5 rounded uppercase tracking-wider">
-                {t.jsTrack}
-              </span>
-            </div>
+          <Card variant="yellow" className="flex flex-col justify-between group relative overflow-hidden w-full">
+            <CardContent className="pt-2 flex flex-col justify-between h-full">
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-12 h-12 rounded-full bg-card border-[3px] border-border flex items-center justify-center text-slate-900 group-hover:scale-110 transition shadow-[2px_2px_0px_var(--shadow-color)]">
+                    <BookOpen className="w-5 h-5 stroke-[2.5]" />
+                  </div>
+                  <span className="text-[9px] font-game font-extrabold text-slate-900 border-2 border-border bg-white/40 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    {t.jsTrack}
+                  </span>
+                </div>
 
-            <h3 className="text-base font-game font-bold text-foreground mb-3 group-hover:text-amber-400 transition-colors uppercase">
-              {t.jsRealm}
-            </h3>
-            
-            <p className="text-[11px] text-slate-400 leading-relaxed mb-6 font-mono">
-              {t.jsRealmDesc}
-            </p>
+                <h3 className="text-lg font-game font-extrabold text-slate-950 mb-3 uppercase tracking-wide">
+                  {t.jsRealm}
+                </h3>
+                
+                <p className="text-xs text-slate-800 leading-relaxed mb-6 font-semibold">
+                  {t.jsRealmDesc}
+                </p>
 
-            <ul className="text-[10px] text-slate-500 space-y-2 mb-8 uppercase font-bold">
-              <li className="flex items-center gap-2">🤖 {t.jsPoints}</li>
-              <li className="flex items-center gap-2">🔥 {t.jsXp}</li>
-              <li className="flex items-center gap-2">🧪 {t.jsVerify}</li>
-            </ul>
-          </div>
+                <ul className="text-[10px] text-slate-700 space-y-2 mb-8 uppercase font-bold tracking-wider">
+                  <li className="flex items-center gap-2">🤖 {t.jsPoints}</li>
+                  <li className="flex items-center gap-2">🔥 {t.jsXp}</li>
+                  <li className="flex items-center gap-2">🧪 {t.jsVerify}</li>
+                </ul>
+              </div>
 
-          <div>
-            {/* Progress meter */}
-            <div className="w-full">
-              <div className="flex justify-between items-center text-[9px] text-slate-400 mb-1.5 font-bold">
-                <span>{t.questCompletion}</span>
-                <span>{jsCompleted}/{jsLessons.length} NODES ({jsProgress}%)</span>
+              <div>
+                {/* Progress meter */}
+                <div className="w-full">
+                  <div className="flex justify-between items-center text-[9px] text-slate-800 mb-1.5 font-extrabold uppercase tracking-wider">
+                    <span>{t.questCompletion}</span>
+                    <span>{jsCompleted}/{jsLessons.length} NODES ({jsProgress}%)</span>
+                  </div>
+                  <Progress value={jsProgress} color="primary" />
+                </div>
+                
+                <Button variant="primary" className="w-full mt-6 py-3 font-game text-[10px] font-bold">
+                  {t.enterRealm}
+                </Button>
               </div>
-              <div className="w-full h-3 bg-slate-900 border-2 border-slate-800 p-0.5 overflow-hidden">
-                <div 
-                  className="h-full bg-amber-500 transition-all duration-500"
-                  style={{ width: `${jsProgress}%` }}
-                />
-              </div>
-            </div>
-            
-            <button className="w-full mt-6 py-3 rounded bg-amber-900/20 hover:bg-amber-600 border-2 border-amber-500/30 text-amber-400 hover:text-white font-game text-[9px] font-bold transition-all pixel-btn active:translate-y-0.5 cursor-pointer">
-              {t.enterRealm}
-            </button>
-          </div>
+            </CardContent>
+          </Card>
         </motion.div>
 
         {/* TS Track Card */}
         <motion.div
-          whileHover={!isTSLocked ? { y: -6 } : {}}
+          whileHover={!isTSLocked ? { scale: 1.01 } : {}}
           onClick={() => handleSelectTrack('ts')}
-          className={`p-6 flex flex-col justify-between group relative overflow-hidden ${
-            isTSLocked 
-              ? 'pixel-box-slate opacity-60 cursor-not-allowed' 
-              : 'pixel-box border-cyan-500 hover:shadow-[4px_4px_0px_#0891b2] cursor-pointer'
-          }`}
+          className={`flex ${!isTSLocked ? 'hover:-rotate-1 transition-transform cursor-pointer' : ''}`}
         >
-          {/* Highlight line */}
-          <div className={`absolute left-0 top-0 right-0 h-1 ${isTSLocked ? 'bg-slate-700' : 'bg-cyan-500'}`} />
-          
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <div className={`w-10 h-10 rounded flex items-center justify-center border ${
-                isTSLocked 
-                  ? 'bg-slate-900 border-slate-800 text-slate-600' 
-                  : 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400 group-hover:scale-110 transition'
-              }`}>
-                {isTSLocked ? <Lock className="w-5 h-5" /> : <Shield className="w-5 h-5" />}
-              </div>
-              <span className={`text-[9px] font-game font-bold border px-2 py-0.5 rounded uppercase tracking-wider ${
-                isTSLocked 
-                  ? 'border-slate-800 text-slate-600' 
-                  : 'border-cyan-500/30 text-cyan-400'
-              }`}>
-                {t.tsTrack}
-              </span>
-            </div>
-
-            <h3 className={`text-base font-game font-bold mb-3 transition-colors uppercase ${
-              isTSLocked ? 'text-slate-500' : 'text-foreground group-hover:text-cyan-400'
-            }`}>
-              {t.tsCitadel}
-            </h3>
-            
-            <p className="text-[11px] text-slate-400 leading-relaxed mb-6 font-mono">
-              {t.tsCitadelDesc}
-            </p>
-
-            <ul className="text-[10px] text-slate-500 space-y-2 mb-8 uppercase font-bold">
-              <li className="flex items-center gap-2">🤖 {t.tsPoints}</li>
-              <li className="flex items-center gap-2">🛡️ {t.tsXp}</li>
-              <li className="flex items-center gap-2">🧪 {t.tsVerify}</li>
-            </ul>
-          </div>
-
-          <div>
-            {isTSLocked ? (
-              <div className="p-3 rounded bg-slate-950 border-2 border-slate-900 flex items-start gap-2">
-                <Lock className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">{t.pathLocked}</p>
-                  <p className="text-[9px] text-slate-500 mt-1 leading-relaxed">
-                    {t.pathLockedDesc}
-                  </p>
-                </div>
-              </div>
-            ) : (
+          <Card 
+            variant={isTSLocked ? 'default' : 'green'} 
+            className={`flex flex-col justify-between w-full relative overflow-hidden ${
+              isTSLocked ? 'opacity-60 cursor-not-allowed shadow-[2px_2px_0px_var(--shadow-color)]' : ''
+            }`}
+          >
+            <CardContent className="pt-2 flex flex-col justify-between h-full">
               <div>
-                {/* Progress meter */}
-                <div className="w-full">
-                  <div className="flex justify-between items-center text-[9px] text-slate-400 mb-1.5 font-bold">
-                    <span>{t.questCompletion}</span>
-                    <span>{tsCompleted}/{tsLessons.length} NODES ({tsProgress}%)</span>
+                <div className="flex items-center justify-between mb-6">
+                  <div className={`w-12 h-12 rounded-full border-[3px] border-border flex items-center justify-center shadow-[2px_2px_0px_var(--shadow-color)] ${
+                    isTSLocked 
+                      ? 'bg-slate-800 border-slate-700 text-slate-500' 
+                      : 'bg-card text-emerald-600 group-hover:scale-110 transition'
+                  }`}>
+                    {isTSLocked ? <Lock className="w-5 h-5 stroke-[2.5]" /> : <Shield className="w-5 h-5 stroke-[2.5]" />}
                   </div>
-                  <div className="w-full h-3 bg-slate-900 border-2 border-slate-800 p-0.5 overflow-hidden">
-                    <div 
-                      className="h-full bg-cyan-500 transition-all duration-500"
-                      style={{ width: `${tsProgress}%` }}
-                    />
-                  </div>
+                  <span className={`text-[9px] font-game font-extrabold border-2 px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
+                    isTSLocked 
+                      ? 'border-slate-300 text-slate-500 bg-slate-900/10' 
+                      : 'border-border text-slate-900 bg-white/40'
+                  }`}>
+                    {t.tsTrack}
+                  </span>
                 </div>
+
+                <h3 className={`text-lg font-game font-extrabold mb-3 uppercase tracking-wide ${
+                  isTSLocked ? 'text-slate-500' : 'text-slate-950'
+                }`}>
+                  {t.tsCitadel}
+                </h3>
                 
-                <button className="w-full mt-6 py-3 rounded bg-cyan-900/20 hover:bg-cyan-600 border-2 border-cyan-500/30 text-cyan-400 hover:text-white font-game text-[9px] font-bold transition-all pixel-btn active:translate-y-0.5 cursor-pointer">
-                  {t.enterRealm}
-                </button>
+                <p className={`text-xs leading-relaxed mb-6 font-semibold ${
+                  isTSLocked ? 'text-slate-500' : 'text-slate-800'
+                }`}>
+                  {t.tsCitadelDesc}
+                </p>
+
+                <ul className={`text-[10px] space-y-2 mb-8 uppercase font-bold tracking-wider ${
+                  isTSLocked ? 'text-slate-500' : 'text-slate-700'
+                }`}>
+                  <li className="flex items-center gap-2">🤖 {t.tsPoints}</li>
+                  <li className="flex items-center gap-2">🛡️ {t.tsXp}</li>
+                  <li className="flex items-center gap-2">🧪 {t.tsVerify}</li>
+                </ul>
               </div>
-            )}
-          </div>
+
+              <div>
+                {isTSLocked ? (
+                  <div className="p-3.5 rounded-2xl bg-card border-[3px] border-border flex items-start gap-2.5 shadow-[2px_2px_0px_var(--shadow-color)]">
+                    <Lock className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-[10px] font-game font-extrabold text-slate-500 uppercase">{t.pathLocked}</p>
+                      <p className="text-[9px] text-slate-500 mt-1 leading-relaxed font-bold">
+                        {t.pathLockedDesc}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {/* Progress meter */}
+                    <div className="w-full">
+                      <div className="flex justify-between items-center text-[9px] text-slate-800 mb-1.5 font-extrabold uppercase tracking-wider">
+                        <span>{t.questCompletion}</span>
+                        <span>{tsCompleted}/{tsLessons.length} NODES ({tsProgress}%)</span>
+                      </div>
+                      <Progress value={tsProgress} color="purple" />
+                    </div>
+                    
+                    <Button variant="purple" className="w-full mt-6 py-3 font-game text-[10px] font-bold">
+                      {t.enterRealm}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
         </motion.div>
 
       </div>
