@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useGame } from '@/context/GameStateContext';
 import GameStatus from './GameStatus';
 import AuthModal from './AuthModal';
-import { Home, Compass, Trophy, BarChart2, RefreshCw } from 'lucide-react';
+import { Home, Compass, Trophy, BarChart2, RefreshCw, BookOpen } from 'lucide-react';
 import { playClickSound } from '@/lib/audio';
 import { useEffect } from 'react';
 import { i18n } from '@/lib/i18n';
@@ -89,6 +89,16 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
             >
               <Home className="w-5 h-5 stroke-[2.5]" />
               <span>{t.navHome}</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('/theory')}
+              className={`flex flex-col items-center gap-1.5 text-[10px] font-game font-extrabold uppercase transition cursor-pointer select-none ${
+                pathname.startsWith('/theory') ? 'text-retro-orange scale-105' : 'text-slate-500 hover:text-foreground'
+              }`}
+            >
+              <BookOpen className="w-5 h-5 stroke-[2.5]" />
+              <span>{t.navTheory}</span>
             </button>
 
             <button

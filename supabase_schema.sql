@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
     last_active_date TEXT,
     completed_lessons TEXT[] DEFAULT '{}'::text[] NOT NULL,
     completed_challenges TEXT[] DEFAULT '{}'::text[] NOT NULL,
+    completed_theory_lessons TEXT[] DEFAULT '{}'::text[] NOT NULL,
     unlocked_badges TEXT[] DEFAULT '{}'::text[] NOT NULL,
     lives INTEGER DEFAULT 3 NOT NULL,
     nickname TEXT DEFAULT 'Novice Mage' NOT NULL,
@@ -52,3 +53,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE OR REPLACE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+
+-- MIGRATION NOTE FOR EXISTING TABLES:
+-- If you already created the profiles table, run the following SQL command to add the column:
+-- ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS completed_theory_lessons TEXT[] DEFAULT '{}'::text[] NOT NULL;
