@@ -210,7 +210,7 @@ function CodingArenaContent() {
         {/* Lesson Title Card */}
         <div className="mb-6 border-b-2 border-indigo-950 pb-4">
           <span className="text-[9px] font-game text-slate-500 uppercase tracking-wider block mb-1">
-            {t.conceptQuest} // {lesson.concept}
+            {`${t.conceptQuest} // ${lesson.concept}`}
           </span>
           <h2 className="text-lg md:text-xl font-game font-bold text-foreground tracking-wide uppercase mt-2">
             {game.language === 'vi' ? lesson.titleVi : lesson.titleEn}
@@ -233,7 +233,6 @@ function CodingArenaContent() {
           onSuccess={handleSuccess}
           onFailure={handleFailure}
           onHeal={handleHeal}
-          xp={game.xp}
         />
       </div>
 

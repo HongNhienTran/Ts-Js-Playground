@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useGame } from '@/context/GameStateContext';
-import { Shield, Sparkles, BookOpen, Lock } from 'lucide-react';
+import { Shield, BookOpen, Lock } from 'lucide-react';
 import { jsLessons } from '@/data/jsLessons';
 import { tsLessons } from '@/data/tsLessons';
 import { playClickSound } from '@/lib/audio';

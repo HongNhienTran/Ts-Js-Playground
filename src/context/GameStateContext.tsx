@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext } from 'react';
 import { useGameState, GameState } from '@/hooks/useGameState';
+import type { User } from '@supabase/supabase-js';
+import { Language } from '@/lib/i18n';
 
 interface GameStateContextProps extends GameState {
   isLoaded: boolean;
@@ -11,10 +13,10 @@ interface GameStateContextProps extends GameState {
   completeLesson: (lessonId: string, xpReward: number) => void;
   completeChallenge: (challengeId: string, xpReward: number) => void;
   toggleSound: () => void;
-  setLanguage: (lang: any) => void;
+  setLanguage: (lang: Language) => void;
   updateProfile: (nickname: string, avatarId: number) => void;
   resetProgress: () => void;
-  user: any;
+  user: User | null;
   isLoggedIn: boolean;
   isAuthModalOpen: boolean;
   setAuthModalOpen: (open: boolean) => void;

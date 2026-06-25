@@ -2,8 +2,7 @@
 
 import { useGame } from '@/context/GameStateContext';
 import { getLevelTitle, getXPForNextLevel } from '@/hooks/useGameState';
-import { motion } from 'framer-motion';
-import { Shield, Sparkles, Trophy, Flame, Check, Star, Settings, User } from 'lucide-react';
+import { Trophy, Flame, Star, Settings } from 'lucide-react';
 import { jsLessons } from '@/data/jsLessons';
 import { tsLessons } from '@/data/tsLessons';
 import { challenges } from '@/data/challenges';
@@ -38,8 +37,11 @@ export default function Dashboard() {
   // Sync state values on load/ready
   useEffect(() => {
     if (game.isLoaded) {
-      setNickname(game.nickname);
-      setAvatarId(game.avatarId);
+      const timer = setTimeout(() => {
+        setNickname(game.nickname);
+        setAvatarId(game.avatarId);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [game.isLoaded, game.nickname, game.avatarId]);
 
@@ -159,7 +161,7 @@ export default function Dashboard() {
                     {game.nickname}
                   </h4>
                   <p className="text-[9px] text-retro-pink mt-1 uppercase font-bold">
-                    LV.{game.level} // {getLevelTitle(game.level)}
+                    {`LV.${game.level} // ${getLevelTitle(game.level)}`}
                   </p>
                 </div>
                 <button

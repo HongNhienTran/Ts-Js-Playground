@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { playLevelUpSound, setSoundEnabled as setAudioEnabled } from '@/lib/audio';
 import { Language } from '@/lib/i18n';
 import { supabase } from '@/lib/supabase';
+import type { User } from '@supabase/supabase-js';
 
 export interface GameState {
   xp: number;
@@ -57,10 +58,33 @@ export function getXPForNextLevel(level: number): number {
   return level * 300;
 }
 
+// Streak checker
+export function checkAndMigrateStreak(currentState: GameState): GameState {
+  if (!currentState.lastActiveDate) return currentState;
+  
+  const today = new Date().toISOString().split('T')[0];
+  const lastActive = currentState.lastActiveDate;
+  
+  if (today === lastActive) {
+    return currentState;
+  }
+  
+  const lastDate = new Date(lastActive);
+  const todayDate = new Date(today);
+  const diffTime = Math.abs(todayDate.getTime() - lastDate.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+  if (diffDays > 1) {
+    return { ...currentState, streak: 0 };
+  }
+  
+  return currentState;
+}
+
 export function useGameState() {
   const [state, setState] = useState<GameState>(DEFAULT_STATE);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isAuthModalOpen, setAuthModalOpen] = useState(false);
 
   // Sync to Cloud helper
@@ -155,9 +179,6 @@ export function useGameState() {
             theme
           });
           
-          setState(loadedLocalState);
-          setAudioEnabled(loadedLocalState.soundEnabled);
-          
           // Apply class on initial mount
           if (loadedLocalState.theme === 'light') {
             document.documentElement.classList.add('light');
@@ -165,14 +186,20 @@ export function useGameState() {
             document.documentElement.classList.remove('light');
           }
         } catch {
-          setState(DEFAULT_STATE);
+          loadedLocalState = DEFAULT_STATE;
           document.documentElement.classList.remove('light');
         }
       } else {
-        setState(DEFAULT_STATE);
+        loadedLocalState = DEFAULT_STATE;
         document.documentElement.classList.remove('light');
       }
-      setIsLoaded(true);
+
+      // Schedule state updates asynchronously to avoid synchronous setState inside useEffect warning
+      const timer = setTimeout(() => {
+        setState(loadedLocalState);
+        setAudioEnabled(loadedLocalState.soundEnabled);
+        setIsLoaded(true);
+      }, 0);
 
       // Check current session
       supabase.auth.getSession().then(({ data: { session } }) => {
@@ -193,6 +220,7 @@ export function useGameState() {
       });
 
       return () => {
+        clearTimeout(timer);
         subscription.unsubscribe();
       };
     }
@@ -209,32 +237,11 @@ export function useGameState() {
     }
   };
 
-  // Streak checker
-  const checkAndMigrateStreak = (currentState: GameState): GameState => {
-    if (!currentState.lastActiveDate) return currentState;
-    
-    const today = new Date().toISOString().split('T')[0];
-    const lastActive = currentState.lastActiveDate;
-    
-    if (today === lastActive) {
-      return currentState;
-    }
-    
-    const lastDate = new Date(lastActive);
-    const todayDate = new Date(today);
-    const diffTime = Math.abs(todayDate.getTime() - lastDate.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    if (diffDays > 1) {
-      return { ...currentState, streak: 0 };
-    }
-    
-    return currentState;
-  };
+
 
   // Action: Add XP
   const addXP = (amount: number) => {
-    let newXp = state.xp + amount;
+    const newXp = state.xp + amount;
     let newLevel = state.level;
     let leveledUp = false;
 

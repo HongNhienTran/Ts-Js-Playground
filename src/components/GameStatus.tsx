@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Flame, Heart, Sparkles, PlusCircle, Sun, Moon } from 'lucide-react';
+import { Flame, Heart, PlusCircle, Sun, Moon } from 'lucide-react';
 import { getLevelTitle, getXPForNextLevel } from '@/hooks/useGameState';
 import SoundToggle from './SoundToggle';
 import { playClickSound } from '@/lib/audio';

@@ -6,7 +6,7 @@ import GameStatus from './GameStatus';
 import AuthModal from './AuthModal';
 import { Home, Compass, Trophy, BarChart2, RefreshCw } from 'lucide-react';
 import { playClickSound } from '@/lib/audio';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { i18n } from '@/lib/i18n';
 
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
@@ -19,19 +19,21 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
   const isLandingPage = pathname === '/';
   const t = i18n[game.language || 'en'];
 
+  const { isLoaded, setAuthModalOpen } = game;
+
   // Trigger login invitation on first load sequence
   useEffect(() => {
-    if (game.isLoaded && !isLandingPage) {
+    if (isLoaded && !isLandingPage) {
       const prompted = localStorage.getItem('auth_prompt_shown');
       if (!prompted) {
         // Delay slightly for visual effect
         const timer = setTimeout(() => {
-          game.setAuthModalOpen(true);
+          setAuthModalOpen(true);
         }, 1200);
         return () => clearTimeout(timer);
       }
     }
-  }, [game.isLoaded, isLandingPage]);
+  }, [isLoaded, isLandingPage, setAuthModalOpen]);
 
   const handleNavClick = (href: string) => {
     playClickSound();

@@ -19,7 +19,6 @@ interface CodeEditorProps {
   onSuccess: (xp: number) => void;
   onFailure: () => void;
   onHeal: () => void;
-  xp: number;
 }
 
 export default function CodeEditor({
@@ -29,8 +28,7 @@ export default function CodeEditor({
   lives,
   onSuccess,
   onFailure,
-  onHeal,
-  xp
+  onHeal
 }: CodeEditorProps) {
   const [code, setCode] = useState(starterCode);
   const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
@@ -38,8 +36,6 @@ export default function CodeEditor({
     tests.map(t => ({ description: t.description, passed: null }))
   );
   const [isRunning, setIsRunning] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [syntaxError, setSyntaxError] = useState<string | null>(null);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const lineCounterRef = useRef<HTMLDivElement>(null);
@@ -48,11 +44,12 @@ export default function CodeEditor({
   const t = i18n[game.language || 'en'];
 
   useEffect(() => {
-    setCode(starterCode);
-    setConsoleLogs([]);
-    setSyntaxError(null);
-    setTestResults(tests.map(t => ({ description: t.description, passed: null })));
-    setIsSuccess(false);
+    const timer = setTimeout(() => {
+      setCode(starterCode);
+      setConsoleLogs([]);
+      setTestResults(tests.map(t => ({ description: t.description, passed: null })));
+    }, 0);
+    return () => clearTimeout(timer);
   }, [starterCode, tests]);
 
   const handleScroll = () => {
@@ -64,9 +61,7 @@ export default function CodeEditor({
   const handleReset = () => {
     setCode(starterCode);
     setConsoleLogs([]);
-    setSyntaxError(null);
     setTestResults(tests.map(t => ({ description: t.description, passed: null })));
-    setIsSuccess(false);
   };
 
   const handleRun = async () => {
@@ -77,7 +72,6 @@ export default function CodeEditor({
 
     setIsRunning(true);
     setConsoleLogs([]);
-    setSyntaxError(null);
 
     const logs: string[] = [];
     const customConsole = {
@@ -144,7 +138,6 @@ export default function CodeEditor({
       setConsoleLogs(logs);
 
       if (allPassed) {
-        setIsSuccess(true);
         playSuccessSound();
         onSuccess(xpReward);
       } else {
@@ -156,7 +149,6 @@ export default function CodeEditor({
       playFailureSound();
       onFailure();
       const errMsg = err instanceof Error ? err.message : String(err);
-      setSyntaxError(errMsg);
       setConsoleLogs(prev => [...prev, `❌ Error: ${errMsg}`]);
       setTestResults(tests.map(t => ({ description: t.description, passed: false, error: "Syntax Error" })));
     } finally {
