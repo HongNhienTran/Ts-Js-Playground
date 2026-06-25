@@ -6,7 +6,7 @@ export const tsLessons: Lesson[] = [
     titleEn: "Forge the Typed Sword",
     titleVi: "Rèn Kiếm Chú Thích Kiểu",
     concept: "Basic Type Annotations",
-    descriptionEn: `### 📜 The Scroll of Typing
+    descriptionEn: `### The Scroll of Typing
 TypeScript is a typing extension for JavaScript. By annotating variables, the compiler ensures no wizard uses a "healing potion" where a "sword" is required.
 
 Basic annotations look like this:
@@ -16,12 +16,12 @@ let characterName: string = "Garrick";
 let isDead: boolean = false;
 \`\`\`
 
-### 🛡️ Your Quest
+### Your Quest
 Declare:
 1. A variable named \`swordDamage\` annotated with the type \`number\` and set to \`45\`.
 2. A variable named \`isLegendary\` annotated with the type \`boolean\` and set to \`true\`.
 3. A variable named \`weaponName\` annotated with the type \`string\` and set to \`"Excalibur"\`.`,
-    descriptionVi: `### 📜 Cuộn Giấy Chú Thích Kiểu
+    descriptionVi: `### Cuộn Giấy Chú Thích Kiểu
 TypeScript là một phần mở rộng khai báo kiểu dữ liệu cho JavaScript. Bằng cách chú thích rõ ràng kiểu dữ liệu cho biến, trình biên dịch sẽ đảm bảo không pháp sư nào dùng nhầm "bình máu" ở vị trí cần "thanh kiếm".
 
 Chú thích kiểu cơ bản trông như thế này:
@@ -31,7 +31,7 @@ let characterName: string = "Garrick";
 let isDead: boolean = false;
 \`\`\`
 
-### 🛡️ Nhiệm Vụ Của Bạn
+### Nhiệm Vụ Của Bạn
 Khai báo:
 1. Một biến tên là \`swordDamage\` được chú thích kiểu \`number\` và gán giá trị bằng \`45\`.
 2. Một biến tên là \`isLegendary\` được chú thích kiểu \`boolean\` và gán giá trị bằng \`true\`.
@@ -75,7 +75,7 @@ Khai báo:
     titleEn: "Create the Hero Sheet",
     titleVi: "Thiết Kế Hồ Sơ Anh Hùng",
     concept: "Interfaces",
-    descriptionEn: `### 📜 The Parchment of Interfaces
+    descriptionEn: `### The Parchment of Interfaces
 Interfaces describe the "shape" of an object. They act as blueprints or contracts for objects.
 
 \`\`\`typescript
@@ -86,14 +86,14 @@ interface Potion {
 }
 \`\`\`
 
-### 🛡️ Your Quest
+### Your Quest
 1. Define an interface named \`Hero\`. It should have:
    - \`name\`: type \`string\`
    - \`level\`: type \`number\`
    - \`role\`: a union of literal strings: \`"Mage" | "Warrior" | "Cleric"\`
    - \`gold\`: type \`number\` (optional, meaning it should end with a \`?\` mark)
 2. Declare a constant variable named \`playerOne\` typed as \`Hero\` that matches your interface definition. (Assign a name, level, role, and optionally gold).`,
-    descriptionVi: `### 📜 Cuộn Giấy Về Interface
+    descriptionVi: `### Cuộn Giấy Về Interface
 Interface mô tả cấu trúc "hình dáng" của một đối tượng. Chúng hoạt động như bản vẽ thiết kế hoặc hợp đồng bắt buộc cho các đối tượng.
 
 \`\`\`typescript
@@ -104,7 +104,7 @@ interface Potion {
 }
 \`\`\`
 
-### 🛡️ Nhiệm Vụ Của Bạn
+### Nhiệm Vụ Của Bạn
 1. Định nghĩa một interface tên là \`Hero\`. Nó phải gồm:
    - \`name\`: kiểu \`string\`
    - \`level\`: kiểu \`number\`
@@ -153,7 +153,7 @@ interface Potion {
     titleEn: "The Generic Loot Box",
     titleVi: "Hòm Đồ Generic Kỳ Bí",
     concept: "Generics",
-    descriptionEn: `### 📜 The Spell of Generics
+    descriptionEn: `### The Spell of Generics
 A generic represents a type placeholder. It is written using angle brackets \`<T>\`. This allows you to build interfaces or functions that handle different types while keeping strict type checking.
 
 \`\`\`typescript
@@ -162,7 +162,7 @@ interface Bag<T> {
 }
 \`\`\`
 
-### 🛡️ Your Quest
+### Your Quest
 1. Create a generic interface named \`Chest<T>\`. It should have two properties:
    - \`loot\`: of type \`T\`
    - \`isLocked\`: of type \`boolean\`
@@ -170,7 +170,7 @@ interface Bag<T> {
    - \`chest\`: of type \`Chest<T>\`
    
    The function should return the \`loot\` property (which will be of type \`T\`).`,
-    descriptionVi: `### 📜 Phép Thuật Tham Số Kiểu Generic
+    descriptionVi: `### Phép Thuật Tham Số Kiểu Generic
 Generic đại diện cho một chỗ trống kiểu dữ liệu tạm thời. Nó được viết bằng các dấu ngoặc nhọn \`<T>\`. Nó cho phép bạn xây dựng các interface hoặc hàm hoạt động được với nhiều kiểu dữ liệu khác nhau nhưng vẫn giữ tính kiểm tra kiểu nghiêm ngặt.
 
 \`\`\`typescript
@@ -179,7 +179,7 @@ interface Bag<T> {
 }
 \`\`\`
 
-### 🛡️ Nhiệm Vụ Của Bạn
+### Nhiệm Vụ Của Bạn
 1. Tạo một interface generic tên là \`Chest<T>\`. Nó phải có hai thuộc tính:
    - \`loot\`: kiểu dữ liệu generic \`T\`
    - \`isLocked\`: kiểu \`boolean\`

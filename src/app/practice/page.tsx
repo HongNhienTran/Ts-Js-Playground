@@ -75,9 +75,9 @@ export default function Practice() {
                 </p>
 
                 <ul className="text-[10px] text-slate-700 space-y-2 mb-8 uppercase font-bold tracking-wider">
-                  <li className="flex items-center gap-2">🤖 {t.jsPoints}</li>
-                  <li className="flex items-center gap-2">🔥 {t.jsXp}</li>
-                  <li className="flex items-center gap-2">🧪 {t.jsVerify}</li>
+                  <li className="flex items-center gap-2">• {t.jsPoints}</li>
+                  <li className="flex items-center gap-2">• {t.jsXp}</li>
+                  <li className="flex items-center gap-2">• {t.jsVerify}</li>
                 </ul>
               </div>
 
@@ -145,9 +145,9 @@ export default function Practice() {
                 <ul className={`text-[10px] space-y-2 mb-8 uppercase font-bold tracking-wider ${
                   isTSLocked ? 'text-slate-500' : 'text-slate-700'
                 }`}>
-                  <li className="flex items-center gap-2">🤖 {t.tsPoints}</li>
-                  <li className="flex items-center gap-2">🛡️ {t.tsXp}</li>
-                  <li className="flex items-center gap-2">🧪 {t.tsVerify}</li>
+                  <li className="flex items-center gap-2">• {t.tsPoints}</li>
+                  <li className="flex items-center gap-2">• {t.tsXp}</li>
+                  <li className="flex items-center gap-2">• {t.tsVerify}</li>
                 </ul>
               </div>
 
