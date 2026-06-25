@@ -6,7 +6,7 @@ export const challenges: Lesson[] = [
     titleEn: "Slay the Code Dragon",
     titleVi: "Hạ Gục Rồng Code",
     concept: "Complex Conditionals (FizzBuzz Style)",
-    descriptionEn: `### 🐉 The Dragon's Pattern
+    descriptionEn: `### The Dragon's Pattern
 The legendary Code Dragon breathes elemental fire at regular patterns based on its power level. To deflect its attacks, your defensive shield must cast different spells matching its power level:
 
 - If the dragon's power level is **divisible by 3**, output \`"Water Shield"\`.
@@ -14,9 +14,9 @@ The legendary Code Dragon breathes elemental fire at regular patterns based on i
 - If the dragon's power level is **divisible by both 3 and 5**, output \`"Omnishield"\`.
 - Otherwise, output \`"Dodge"\`.
 
-### 🛡️ Your Quest
+### Your Quest
 Write a function named \`dragonDefense\` that takes a number \`powerLevel\` and returns the appropriate string command (exactly as capitalized above).`,
-    descriptionVi: `### 🐉 Quy Luật Tấn Công Của Rồng
+    descriptionVi: `### Quy Luật Tấn Công Của Rồng
 Rồng Code huyền thoại phun lửa theo các chu kỳ năng lượng tương ứng. Để phản đòn và dựng khiên chắn tối ưu, bạn phải điều khiển tấm khiên thi triển các spells tương thích với cấp sức mạnh của rồng:
 
 - Nếu cấp sức mạnh của rồng **chia hết cho 3**, thi triển \`"Water Shield"\`.
@@ -24,7 +24,7 @@ Rồng Code huyền thoại phun lửa theo các chu kỳ năng lượng tương
 - Nếu cấp sức mạnh của rồng **chia hết cho cả 3 và 5**, thi triển \`"Omnishield"\`.
 - Các trường hợp còn lại, xuất lệnh né đòn \`"Dodge"\`.
 
-### 🛡️ Nhiệm Vụ Của Bạn
+### Nhiệm Vụ Của Bạn
 Viết một hàm tên là \`dragonDefense\` nhận vào một số đại diện cho cấp sức mạnh của rồng \`powerLevel\` và trả về chuỗi câu lệnh phòng thủ thích hợp (viết hoa chính xác như mô tả ở trên).`,
     starterCode: `function dragonDefense(powerLevel) {
   // Cast your shield spells here
@@ -56,10 +56,10 @@ Viết một hàm tên là \`dragonDefense\` nhận vào một số đại diệ
     titleEn: "Cauldron Alchemy",
     titleVi: "Vạc Nung Giả Kim",
     concept: "Array Reduce & Objects",
-    descriptionEn: `### 📜 The Alchemist's Cauldron
+    descriptionEn: `### The Alchemist's Cauldron
 To forge an epic weapon, you must melt down materials in the magical crucible. You need to calculate the exact weight of materials to ensure the crucible doesn't overflow (maximum capacity is **1000 kg**).
 
-### 🛡️ Your Quest
+### Your Quest
 Write a function named \`calculateCauldronWeight\` that takes an array of items. Each item is an object:
 \`\`\`javascript
 { name: "Iron Ore", weight: 150 }
@@ -69,10 +69,10 @@ The function should sum the weights of all items and:
 - Throw an error with the message \`"Cauldron overflow!"\` if the total weight exceeds 1000.
 
 *Hint: Use the array method \`.reduce()\` to sum the weights.*`,
-    descriptionVi: `### 📜 Vạc Nung Phép Thuật
+    descriptionVi: `### Vạc Nung Phép Thuật
 Để rèn nên một vũ khí sử thi, bạn phải nấu chảy các nguyên liệu trong vạc luyện kim ma thuật. Bạn cần tính tổng trọng lượng của các nguyên liệu để đảm bảo vạc nấu không bị quá tải (sức chứa tối đa là **1000 kg**).
 
-### 🛡️ Nhiệm Vụ Của Bạn
+### Nhiệm Vụ Của Bạn
 Viết một hàm tên là \`calculateCauldronWeight\` nhận vào một mảng chứa danh sách các vật phẩm. Mỗi vật phẩm là một đối tượng dạng:
 \`\`\`javascript
 { name: "Iron Ore", weight: 150 }
@@ -122,7 +122,7 @@ Hàm này sẽ tính tổng trọng lượng của toàn bộ các vật phẩm 
     titleEn: "Dungeon Pathfinding",
     titleVi: "Dò Đường Hầm Ngục",
     concept: "Recursion & Nested Structures",
-    descriptionEn: `### 📜 The Relic Room
+    descriptionEn: `### The Relic Room
 You are exploring a nested dungeon structure where rooms can branch into other rooms. You must search recursively through the rooms to find if the magical relic is hidden anywhere.
 
 A dungeon room is shaped like this:
@@ -140,11 +140,11 @@ A dungeon room is shaped like this:
 }
 \`\`\`
 
-### 🛡️ Your Quest
+### Your Quest
 Write a function named \`containsRelic\` that takes a room object. It should search the current room's items for \`"Ancient Relic"\`. If not found, it must check all sub-rooms recursively.
 - Return \`true\` if \`"Ancient Relic"\` is found anywhere in the room or its sub-rooms.
 - Return \`false\` if it is not found anywhere.`,
-    descriptionVi: `### 📜 Căn Phòng Hòm Báu
+    descriptionVi: `### Căn Phòng Hòm Báu
 Bạn đang khám phá một hầm ngục nhiều tầng, trong đó mỗi phòng có thể rẽ nhánh dẫn đến các phòng con khác. Bạn phải thực hiện tìm kiếm đệ quy qua các căn phòng để xác định xem bảo vật cổ xưa có được giấu ở bất kỳ đâu không.
 
 Cấu trúc một căn phòng hầm ngục trông như sau:
@@ -162,7 +162,7 @@ Cấu trúc một căn phòng hầm ngục trông như sau:
 }
 \`\`\`
 
-### 🛡️ Nhiệm Vụ Của Bạn
+### Nhiệm Vụ Của Bạn
 Viết một hàm tên là \`containsRelic\` nhận vào một đối tượng phòng \`room\`. Hàm sẽ tìm kiếm xem trong danh sách vật phẩm (\`items\`) của phòng hiện tại có phần tử \`"Ancient Relic"\` hay không. Nếu không tìm thấy, nó phải tiếp tục kiểm tra đệ quy sâu vào tất cả các phòng con (\`subRooms\`).
 - Trả về \`true\` nếu tìm thấy \`"Ancient Relic"\` ở phòng hiện tại hoặc bất kỳ phòng con nào bên dưới.
 - Trả về \`false\` nếu không tìm thấy ở bất cứ đâu.`,

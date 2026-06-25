@@ -54,7 +54,7 @@ export default function AuthModal({ isOpen, onClose, lang }: AuthModalProps) {
     playClickSound();
     if (!email || !password) {
       playFailureSound();
-      setErrorMsg(lang === 'vi' ? 'Vui lòng điền đủ email và mật mã!' : 'Please enter both email and password!');
+      setErrorMsg(t.authErrorFields);
       return;
     }
 
@@ -146,7 +146,7 @@ export default function AuthModal({ isOpen, onClose, lang }: AuthModalProps) {
 
         <div className="flex items-center gap-3 font-game text-[9px] font-bold text-slate-400 uppercase">
           <div className="flex-1 h-0.5 bg-border/10" />
-          <span>{lang === 'vi' ? 'HOẶC' : 'OR'}</span>
+          <span>{t.or}</span>
           <div className="flex-1 h-0.5 bg-border/10" />
         </div>
 

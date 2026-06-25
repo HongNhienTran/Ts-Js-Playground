@@ -151,7 +151,7 @@ export default function Challenges() {
                       variant="outline"
                       className="w-full mt-5 text-[10px] py-2.5"
                     >
-                      LOCKED
+                      {t.locked}
                     </Button>
                   ) : (
                     <Button
