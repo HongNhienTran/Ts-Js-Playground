@@ -123,10 +123,17 @@ export const i18n = {
 
     // Nav Bar
     navHome: "HOME",
+    navTheory: "LEARN",
     navPractice: "PRACTICE",
     navArena: "ARENA",
     navStats: "STATS",
     navReset: "RESET",
+
+    // Theory Page
+    theoryTitle: "Academy of Magic",
+    theoryDesc: "Study the ancient scrolls of programming theory before practicing.",
+    theoryDone: "Completed",
+    theoryProgress: "Theory Completed",
 
     // Guild & Badges
     guildAccount: "GUILD ACCOUNT",
@@ -285,10 +292,17 @@ export const i18n = {
 
     // Nav Bar
     navHome: "TRANG CHỦ",
+    navTheory: "HỌC TẬP",
     navPractice: "LUYỆN TẬP",
     navArena: "ĐẤU TRƯỜNG",
     navStats: "CHỈ SỐ",
     navReset: "LÀM LẠI",
+
+    // Theory Page
+    theoryTitle: "Học Viện Pháp Thuật",
+    theoryDesc: "Học tập các cuộn giấy lý thuyết lập trình cổ xưa trước khi thực hành.",
+    theoryDone: "Đã học xong",
+    theoryProgress: "Lý thuyết đã học",
 
     // Guild & Badges
     guildAccount: "HỘI PHÁP SƯ",
