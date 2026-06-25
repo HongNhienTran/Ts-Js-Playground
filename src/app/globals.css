@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300..900&family=Plus+Jakarta+Sans:wght@300..800&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 
 @font-face {
@@ -10,39 +10,56 @@
   font-display: swap;
 }
 
+/* Default / Dark Mode Theme Variables */
 :root {
-  --background: #150d0a;
+  --background: #140b07;
   --foreground: #fefbfc;
-  --card: #251713;
+  --card: #1f130e;
   --card-foreground: #fefbfc;
   --primary: #ff6a1c;
   --primary-foreground: #ffffff;
-  --border: #ffae56;
+  --border: #fefbfc;
   --border-muted: #3a251f;
   --shadow-color: #000000;
   
-  /* Custom warm arcade retro colors */
-  --color-retro-orange: #FF6A1C;
-  --color-retro-yellow: #FFDA62;
-  --color-retro-peach: #FFAE56;
-  --color-retro-pink: #F5788B;
+  /* Pop Art Warm Colors - Dark variations */
+  --color-pop-yellow: #eab308;
+  --color-pop-orange: #ea580c;
+  --color-pop-peach: #f97316;
+  --color-pop-pink: #ec4899;
+  --color-pop-green: #22c55e;
+  --color-pop-purple: #a855f7;
+  
+  --color-retro-orange: #ff6a1c;
+  --color-retro-yellow: #ffda62;
+  --color-retro-peach: #ffae56;
+  --color-retro-pink: #f5788b;
 }
 
+/* Light Mode Theme Variables */
 .light {
   --background: #faf6ee;
   --foreground: #22120b;
-  --card: #fffbf7;
+  --card: #ffffff;
   --card-foreground: #22120b;
   --primary: #ff6a1c;
   --primary-foreground: #ffffff;
-  --border: #ffae56;
+  --border: #22120b;
   --border-muted: #e6d3c3;
-  --shadow-color: rgba(34, 18, 11, 0.4);
+  --shadow-color: #22120b;
   
-  --color-retro-orange: #FF6A1C;
-  --color-retro-yellow: #FFDA62;
-  --color-retro-peach: #FFAE56;
-  --color-retro-pink: #F5788B;
+  /* Pop Art Warm Colors - Light variations */
+  --color-pop-yellow: #ffda62;
+  --color-pop-orange: #fed7aa;
+  --color-pop-peach: #ffd7be;
+  --color-pop-pink: #fbcfe8;
+  --color-pop-green: #a7fcbe;
+  --color-pop-purple: #d8b4fe;
+  
+  --color-retro-orange: #ff6a1c;
+  --color-retro-yellow: #ffda62;
+  --color-retro-peach: #ffae56;
+  --color-retro-pink: #f5788b;
 }
 
 @theme inline {
@@ -52,32 +69,38 @@
   --color-card-foreground: var(--card-foreground);
   --color-border: var(--border);
   
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-game: 'DFVN Pexel Grotesk', monospace;
-  --font-tech: 'Share Tech Mono', monospace;
+  --font-sans: 'Plus Jakarta Sans', var(--font-geist-sans), sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-game: 'Outfit', sans-serif;
+  --font-tech: 'Plus Jakarta Sans', sans-serif;
   
   --color-retro-orange: var(--color-retro-orange);
   --color-retro-yellow: var(--color-retro-yellow);
   --color-retro-peach: var(--color-retro-peach);
   --color-retro-pink: var(--color-retro-pink);
+  
+  --color-pop-yellow: var(--color-pop-yellow);
+  --color-pop-orange: var(--color-pop-orange);
+  --color-pop-peach: var(--color-pop-peach);
+  --color-pop-pink: var(--color-pop-pink);
+  --color-pop-green: var(--color-pop-green);
+  --color-pop-purple: var(--color-pop-purple);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Share Tech Mono', var(--font-mono), monospace;
-  image-rendering: pixelated;
+  font-family: var(--font-tech), var(--font-sans), sans-serif;
   overflow-x: hidden;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Header style for game titles - bind cleanly to theme variable */
+/* Headings and Titles */
 .font-game {
   font-family: var(--font-game);
 }
 
-/* Custom background grid with warm orange accents */
+/* Dynamic pop art card background grids */
 .game-grid {
   background-size: 32px 32px;
   background-image: 
@@ -91,36 +114,40 @@ body {
     linear-gradient(to bottom, rgba(255, 106, 28, 0.03) 1px, transparent 1px);
 }
 
-/* Pixel Box double border style - themed with warm peach/orange */
+/* Re-mapping standard pixel boxes to high-contrast pop art cards */
 .pixel-box {
   background-color: var(--card);
-  border: 4px double var(--border);
+  border: 3px solid var(--border);
   box-shadow: 4px 4px 0px var(--shadow-color);
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 1.25rem; /* rounded-2xl */
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pixel-box-emerald {
-  background-color: var(--background);
-  border: 4px double #22c55e;
+  background-color: var(--card);
+  border: 3px solid var(--color-pop-green);
   box-shadow: 4px 4px 0px var(--shadow-color);
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 1.25rem;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pixel-box-rose {
-  background-color: var(--background);
-  border: 4px double var(--color-retro-pink);
+  background-color: var(--card);
+  border: 3px solid var(--color-pop-pink);
   box-shadow: 4px 4px 0px var(--shadow-color);
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 1.25rem;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pixel-box-slate {
-  background-color: var(--background);
-  border: 4px double var(--border-muted);
+  background-color: var(--card);
+  border: 3px solid var(--border-muted);
   box-shadow: 4px 4px 0px var(--shadow-color);
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 1.25rem;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 8-bit solid offset shadows using theme palette */
+/* Flat solid offset shadows */
 .pixel-shadow-orange {
   box-shadow: 4px 4px 0px var(--color-retro-orange);
 }
@@ -133,33 +160,33 @@ body {
   box-shadow: 4px 4px 0px var(--color-retro-pink);
 }
 
-/* Click animation for pixel buttons */
+/* Interactive Pop Art buttons (sinks on active click) */
 .pixel-btn {
-  border: 2px solid var(--shadow-color);
-  box-shadow: 3px 3px 0px var(--shadow-color);
-  transition: all 0.05s ease;
+  border: 3px solid var(--border);
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  border-radius: 0.75rem; /* rounded-xl */
+  transition: all 0.08s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pixel-btn:active:not(:disabled) {
-  transform: translate(3px, 3px);
-  box-shadow: 0px 0px 0px var(--shadow-color);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--shadow-color);
 }
 
 /* Animations */
 @keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
 }
 
-/* Custom scrollbars matching cocoa arcade base */
+/* Custom scrollbars */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -173,15 +200,18 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--border-muted);
   border: 2px solid var(--background);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-retro-orange);
 }
 
-/* Parchment design */
+/* Parchment containers - Pop art style */
 .parchment {
-  background: linear-gradient(135deg, var(--card) 0%, var(--background) 100%);
-  border: 2px solid var(--border-muted);
+  background-color: var(--card);
+  border: 3px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }

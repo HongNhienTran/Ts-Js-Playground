@@ -48,25 +48,25 @@ export default function SkillNode({
       <button
         onClick={handleClick}
         disabled={isLocked}
-        className={`w-20 h-20 rounded-full flex items-center justify-center border-4 relative transition-all duration-300 shadow-lg cursor-pointer ${
+        className={`w-20 h-20 rounded-full flex items-center justify-center border-[3px] border-border relative transition-all duration-300 cursor-pointer shadow-[3px_3px_0px_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
           isCompleted
-            ? 'bg-emerald-950 border-emerald-400 text-emerald-400 shadow-[0_0_20px_rgba(52,211,153,0.3)] hover:scale-105 hover:shadow-[0_0_25px_rgba(52,211,153,0.5)]'
+            ? 'bg-pop-green text-slate-900 hover:scale-105'
             : isLocked
-            ? 'bg-slate-900 border-slate-700 text-slate-500 cursor-not-allowed opacity-60'
-            : 'bg-indigo-950 border-indigo-400 text-indigo-300 shadow-[0_0_20px_rgba(129,140,248,0.3)] animate-pulse hover:animate-none hover:scale-110 hover:border-pink-400 hover:text-pink-300 hover:shadow-[0_0_25px_rgba(244,114,182,0.6)]'
+            ? 'bg-card border-border-muted text-slate-500 cursor-not-allowed opacity-50 shadow-[1px_1px_0px_var(--shadow-color)]'
+            : 'bg-pop-yellow text-slate-900 hover:scale-115 hover:-rotate-3 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none shadow-[4px_4px_0px_var(--shadow-color)]'
         }`}
       >
         {isCompleted ? (
           <Check className="w-8 h-8 stroke-[3]" />
         ) : isLocked ? (
-          <Lock className="w-7 h-7" />
+          <Lock className="w-6 h-6 stroke-[2.5]" />
         ) : (
-          <Play className="w-8 h-8 fill-indigo-400 stroke-indigo-400 translate-x-0.5 group-hover:fill-pink-400 group-hover:stroke-pink-400" />
+          <Play className="w-8 h-8 fill-slate-900 stroke-slate-900 translate-x-0.5 group-hover:fill-retro-orange group-hover:stroke-retro-orange transition-colors" />
         )}
 
         {/* Level XP Floating badge */}
         {!isLocked && !isCompleted && (
-          <span className="absolute -top-2.5 -right-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border border-white/20 flex items-center gap-0.5 shadow-md">
+          <span className="absolute -top-2.5 -right-2.5 bg-retro-orange text-white text-[9px] font-game font-extrabold px-2.5 py-0.5 rounded-full border-2 border-border shadow-[1px_1px_0px_var(--shadow-color)] flex items-center gap-0.5 animate-pulse">
             <Sparkles className="w-2.5 h-2.5" />
             +{xpReward}
           </span>
@@ -75,21 +75,25 @@ export default function SkillNode({
 
       {/* Info card underneath the node */}
       <div className="text-center mt-3 max-w-[200px]">
-        <h4 className={`font-mono text-sm font-bold tracking-tight ${
-          isCompleted ? 'text-emerald-400' : isLocked ? 'text-slate-500' : 'text-indigo-200 group-hover:text-pink-300 transition-colors'
+        <h4 className={`font-game text-xs font-extrabold uppercase tracking-wide ${
+          isCompleted 
+            ? 'text-emerald-600 dark:text-emerald-400' 
+            : isLocked 
+            ? 'text-slate-400' 
+            : 'text-retro-orange group-hover:text-retro-pink transition-colors'
         }`}>
           {title}
         </h4>
-        <p className="text-xs text-slate-400 font-medium mt-0.5 font-mono">{concept}</p>
+        <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold mt-0.5">{concept}</p>
         
         {/* Difficulty flag */}
         {!isLocked && (
-          <span className={`text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded border mt-1.5 inline-block font-mono ${
+          <span className={`text-[8px] font-game font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full border-2 border-border mt-1.5 inline-block ${
             difficulty === 'Easy'
-              ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+              ? 'bg-pop-green/30 text-slate-800 dark:text-emerald-300'
               : difficulty === 'Medium'
-              ? 'bg-amber-500/10 border-amber-500/20 text-amber-400'
-              : 'bg-rose-500/10 border-rose-500/20 text-rose-400'
+              ? 'bg-pop-yellow/30 text-slate-800 dark:text-amber-300'
+              : 'bg-pop-pink/30 text-slate-800 dark:text-rose-300'
           }`}>
             {difficulty}
           </span>
