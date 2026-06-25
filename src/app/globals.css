@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'DFVN Pexel Grotesk';
+  src: url('/fonts/DFVN-Pexel-Grotesk.ttf') format('truetype'),
+       url('/fonts/DFVN-Pexel-Grotesk.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #150d0a;
+  --foreground: #fefbfc;
+  --card: #251713;
+  --card-foreground: #fefbfc;
+  --primary: #ff6a1c;
+  --primary-foreground: #ffffff;
+  --border: #ffae56;
+  --border-muted: #3a251f;
+  --shadow-color: #000000;
+  
+  /* Custom warm arcade retro colors */
+  --color-retro-orange: #FF6A1C;
+  --color-retro-yellow: #FFDA62;
+  --color-retro-peach: #FFAE56;
+  --color-retro-pink: #F5788B;
+}
+
+.light {
+  --background: #faf6ee;
+  --foreground: #22120b;
+  --card: #fffbf7;
+  --card-foreground: #22120b;
+  --primary: #ff6a1c;
+  --primary-foreground: #ffffff;
+  --border: #ffae56;
+  --border-muted: #e6d3c3;
+  --shadow-color: rgba(34, 18, 11, 0.4);
+  
+  --color-retro-orange: #FF6A1C;
+  --color-retro-yellow: #FFDA62;
+  --color-retro-peach: #FFAE56;
+  --color-retro-pink: #F5788B;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-game: 'DFVN Pexel Grotesk', monospace;
+  --font-tech: 'Share Tech Mono', monospace;
+  
+  --color-retro-orange: var(--color-retro-orange);
+  --color-retro-yellow: var(--color-retro-yellow);
+  --color-retro-peach: var(--color-retro-peach);
+  --color-retro-pink: var(--color-retro-pink);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Share Tech Mono', var(--font-mono), monospace;
+  image-rendering: pixelated;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Header style for game titles - bind cleanly to theme variable */
+.font-game {
+  font-family: var(--font-game);
+}
+
+/* Custom background grid with warm orange accents */
+.game-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 106, 28, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 106, 28, 0.04) 1px, transparent 1px);
+}
+
+.light .game-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 106, 28, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 106, 28, 0.03) 1px, transparent 1px);
+}
+
+/* Pixel Box double border style - themed with warm peach/orange */
+.pixel-box {
+  background-color: var(--card);
+  border: 4px double var(--border);
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pixel-box-emerald {
+  background-color: var(--background);
+  border: 4px double #22c55e;
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pixel-box-rose {
+  background-color: var(--background);
+  border: 4px double var(--color-retro-pink);
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pixel-box-slate {
+  background-color: var(--background);
+  border: 4px double var(--border-muted);
+  box-shadow: 4px 4px 0px var(--shadow-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 8-bit solid offset shadows using theme palette */
+.pixel-shadow-orange {
+  box-shadow: 4px 4px 0px var(--color-retro-orange);
+}
+
+.pixel-shadow-yellow {
+  box-shadow: 4px 4px 0px var(--color-retro-yellow);
+}
+
+.pixel-shadow-pink {
+  box-shadow: 4px 4px 0px var(--color-retro-pink);
+}
+
+/* Click animation for pixel buttons */
+.pixel-btn {
+  border: 2px solid var(--shadow-color);
+  box-shadow: 3px 3px 0px var(--shadow-color);
+  transition: all 0.05s ease;
+}
+
+.pixel-btn:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px var(--shadow-color);
+}
+
+/* Animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Custom scrollbars matching cocoa arcade base */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+  border-left: 2px solid var(--card);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-muted);
+  border: 2px solid var(--background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-retro-orange);
+}
+
+/* Parchment design */
+.parchment {
+  background: linear-gradient(135deg, var(--card) 0%, var(--background) 100%);
+  border: 2px solid var(--border-muted);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
