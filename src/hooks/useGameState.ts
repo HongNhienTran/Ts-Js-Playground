@@ -11,6 +11,7 @@ export interface GameState {
   lastActiveDate: string | null;
   completedLessons: string[];
   completedChallenges: string[];
+  completedTheoryLessons: string[];
   unlockedBadges: string[];
   lives: number;
   soundEnabled: boolean;
@@ -27,6 +28,7 @@ const DEFAULT_STATE: GameState = {
   lastActiveDate: null,
   completedLessons: [],
   completedChallenges: [],
+  completedTheoryLessons: [],
   unlockedBadges: [],
   lives: 3,
   soundEnabled: true,
@@ -100,6 +102,7 @@ export function useGameState() {
           last_active_date: currentState.lastActiveDate,
           completed_lessons: currentState.completedLessons,
           completed_challenges: currentState.completedChallenges,
+          completed_theory_lessons: currentState.completedTheoryLessons,
           unlocked_badges: currentState.unlockedBadges,
           lives: currentState.lives,
           nickname: currentState.nickname,
@@ -138,6 +141,7 @@ export function useGameState() {
           lastActiveDate: data.last_active_date ?? null,
           completedLessons: data.completed_lessons ?? [],
           completedChallenges: data.completed_challenges ?? [],
+          completedTheoryLessons: data.completed_theory_lessons ?? [],
           unlockedBadges: data.unlocked_badges ?? [],
           lives: data.lives ?? 3,
           soundEnabled: currentLocal.soundEnabled ?? true,
@@ -170,13 +174,15 @@ export function useGameState() {
           const nickname = parsed.nickname || 'Novice Mage';
           const avatarId = parsed.avatarId || 1;
           const theme = parsed.theme || 'dark';
+          const completedTheoryLessons = parsed.completedTheoryLessons || [];
           
           loadedLocalState = checkAndMigrateStreak({
             ...parsed,
             language,
             nickname,
             avatarId,
-            theme
+            theme,
+            completedTheoryLessons
           });
           
           // Apply class on initial mount
@@ -411,6 +417,18 @@ export function useGameState() {
     }
   };
 
+  // Action: Toggle a theory lesson as completed or not
+  const toggleTheoryLesson = (lessonId: string, isCompleted: boolean) => {
+    let newCompleted: string[];
+    if (isCompleted) {
+      if (state.completedTheoryLessons.includes(lessonId)) return;
+      newCompleted = [...state.completedTheoryLessons, lessonId];
+    } else {
+      newCompleted = state.completedTheoryLessons.filter(id => id !== lessonId);
+    }
+    saveState({ ...state, completedTheoryLessons: newCompleted });
+  };
+
   return {
     ...state,
     isLoaded,
@@ -419,6 +437,7 @@ export function useGameState() {
     healLife,
     completeLesson,
     completeChallenge,
+    toggleTheoryLesson,
     toggleSound,
     setLanguage,
     updateProfile,

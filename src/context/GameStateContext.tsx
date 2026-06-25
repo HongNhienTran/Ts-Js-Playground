@@ -12,6 +12,7 @@ interface GameStateContextProps extends GameState {
   healLife: (cost?: number) => void;
   completeLesson: (lessonId: string, xpReward: number) => void;
   completeChallenge: (challengeId: string, xpReward: number) => void;
+  toggleTheoryLesson: (lessonId: string, isCompleted: boolean) => void;
   toggleSound: () => void;
   setLanguage: (lang: Language) => void;
   updateProfile: (nickname: string, avatarId: number) => void;
