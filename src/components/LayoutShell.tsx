@@ -66,7 +66,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
           nickname={game.nickname}
           avatarId={game.avatarId}
           isLoggedIn={game.isLoggedIn}
-          userEmail={game.user ? game.user.email : null}
+          userEmail={game.user?.email ?? null}
           onOpenAuth={() => game.setAuthModalOpen(true)}
           onLogout={game.logout}
           theme={game.theme}
