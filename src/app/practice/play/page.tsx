@@ -31,7 +31,7 @@ function CodingArenaContent() {
   if (!game.isLoaded) {
     return (
       <div className="flex-1 flex items-center justify-center bg-background font-sans text-slate-500 font-bold uppercase">
-        🧙‍♂️ Summoning local variables...
+        Summoning local variables...
       </div>
     );
   }
@@ -39,7 +39,7 @@ function CodingArenaContent() {
   if (!lesson) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center bg-background p-6 text-center">
-        <p className="text-rose-500 font-game font-extrabold text-sm mb-6 uppercase">🔮 SPELL NOT FOUND</p>
+        <p className="text-rose-500 font-game font-extrabold text-sm mb-6 uppercase">SPELL NOT FOUND</p>
         <Button 
           onClick={() => router.push('/practice')}
           variant="outline"
@@ -250,7 +250,7 @@ export default function Play() {
   return (
     <Suspense fallback={
       <div className="flex-1 flex items-center justify-center bg-background font-sans text-slate-500 font-bold uppercase">
-        🧙‍♂️ Summoning local variables...
+        Summoning local variables...
       </div>
     }>
       <CodingArenaContent />

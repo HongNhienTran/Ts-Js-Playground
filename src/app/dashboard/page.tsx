@@ -10,7 +10,7 @@ import { i18n } from '@/lib/i18n';
 import { useState, useEffect } from 'react';
 import { PRESET_AVATARS, getAvatarSvg } from '@/lib/avatars';
 import { playClickSound, playLevelUpSound } from '@/lib/audio';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Card, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Progress } from '@/components/ui/Progress';
 
@@ -18,14 +18,15 @@ interface Badge {
   id: string;
   nameKey: 'firstSteps' | 'squire' | 'tsScholar' | 'bossSlayer' | 'streak3';
   requirementKey: 'reqLesson' | 'reqLevel2' | 'reqTS' | 'reqBoss' | 'reqStreak3';
+  descKey: 'descFirstSteps' | 'descSquire' | 'descTSScholar' | 'descBossSlayer' | 'descStreak3';
 }
 
 const BADGES: Badge[] = [
-  { id: "first_steps", nameKey: 'firstSteps', requirementKey: 'reqLesson' },
-  { id: "squire", nameKey: 'squire', requirementKey: 'reqLevel2' },
-  { id: "ts_scholar", nameKey: 'tsScholar', requirementKey: 'reqTS' },
-  { id: "boss_slayer", nameKey: 'bossSlayer', requirementKey: 'reqBoss' },
-  { id: "streak_3", nameKey: 'streak3', requirementKey: 'reqStreak3' }
+  { id: "first_steps", nameKey: 'firstSteps', requirementKey: 'reqLesson', descKey: 'descFirstSteps' },
+  { id: "squire", nameKey: 'squire', requirementKey: 'reqLevel2', descKey: 'descSquire' },
+  { id: "ts_scholar", nameKey: 'tsScholar', requirementKey: 'reqTS', descKey: 'descTSScholar' },
+  { id: "boss_slayer", nameKey: 'bossSlayer', requirementKey: 'reqBoss', descKey: 'descBossSlayer' },
+  { id: "streak_3", nameKey: 'streak3', requirementKey: 'reqStreak3', descKey: 'descStreak3' }
 ];
 
 export default function Dashboard() {
@@ -51,7 +52,7 @@ export default function Dashboard() {
   if (!game.isLoaded) {
     return (
       <div className="flex-1 flex items-center justify-center bg-background font-sans text-slate-500 font-bold uppercase">
-        🧙‍♂️ Reading scroll of stats...
+        Reading scroll of stats...
       </div>
     );
   }
@@ -92,40 +93,6 @@ export default function Dashboard() {
   const handleToggleEdit = () => {
     playClickSound();
     setIsEditing(!isEditing);
-  };
-
-  // Translations for badges
-  const getBadgeName = (key: string) => {
-    const names = {
-      firstSteps: game.language === 'vi' ? 'Bước Đầu Tiên' : 'First Steps',
-      squire: game.language === 'vi' ? 'Học Việc Cú Pháp' : 'Syntax Squire',
-      tsScholar: game.language === 'vi' ? 'Môn Đồ TypeScript' : 'TypeScript Apprentice',
-      bossSlayer: game.language === 'vi' ? 'Thợ Săn Rồng' : 'Boss Slayer',
-      streak3: game.language === 'vi' ? 'Giữ Lửa Luyện Tập' : 'Streak Keeper'
-    };
-    return names[key as keyof typeof names];
-  };
-
-  const getBadgeDesc = (id: string) => {
-    const descs = {
-      first_steps: game.language === 'vi' ? 'Đã thi triển câu lệnh biến đầu tiên của bạn.' : 'Declared your first variables and compiled initial code.',
-      squire: game.language === 'vi' ? 'Chứng tỏ năng lực làm chủ các logic cú pháp.' : 'Proven your capability in basic code logic operations.',
-      ts_scholar: game.language === 'vi' ? 'Gia nhập thành trì của kiểu dữ liệu tĩnh kiểm tra.' : 'Ventured into the Citadel of type checking and structures.',
-      boss_slayer: game.language === 'vi' ? 'Đánh bại rồng hoặc thử thách đệ quy trong đấu trường.' : 'Defeated one or more legendary challenges in the Arena.',
-      streak_3: game.language === 'vi' ? 'Duy trì học tập liên tục 3 ngày để khắc sâu trí nhớ.' : 'Maintained a study routine of 3 days to forge muscle memory.'
-    };
-    return descs[id as keyof typeof descs];
-  };
-
-  const getBadgeReq = (key: string) => {
-    const reqs = {
-      reqLesson: game.language === 'vi' ? 'Hoàn thành bài học bất kỳ' : 'Complete any lesson',
-      reqLevel2: game.language === 'vi' ? 'Đạt nhân vật Cấp độ 2' : 'Reach character Level 2',
-      reqTS: game.language === 'vi' ? 'Hoàn thành bài học TS bất kỳ' : 'Complete any TypeScript lesson',
-      reqBoss: game.language === 'vi' ? 'Hoàn thành Boss Arena bất kỳ' : 'Complete any Boss Challenge',
-      reqStreak3: game.language === 'vi' ? 'Đạt chuỗi học tập 3 ngày' : 'Reach a 3-Day streak'
-    };
-    return reqs[key as keyof typeof reqs];
   };
 
   return (
@@ -185,7 +152,7 @@ export default function Dashboard() {
                     onClick={handleToggleEdit}
                     className="text-[10px] font-bold text-slate-700 hover:text-slate-900 underline cursor-pointer"
                   >
-                    Cancel
+                    {t.cancel}
                   </button>
                 </div>
 
@@ -269,7 +236,7 @@ export default function Dashboard() {
             </div>
             <div className="flex justify-between text-slate-800 font-bold">
               <span>{t.bossCompleted}</span>
-              <span className="text-slate-950 font-extrabold">{bossesSlayed} / {challenges.length}</span>
+              <span className="text-slate-955 font-extrabold">{bossesSlayed} / {challenges.length}</span>
             </div>
             <div className="flex justify-between border-t-2 border-dashed border-border-muted pt-3 text-slate-900 font-extrabold">
               <span>{t.totalCompleted}</span>
@@ -280,49 +247,45 @@ export default function Dashboard() {
           {/* Account Profile Card */}
           <Card variant="default" className="space-y-4">
             <h3 className="text-xs font-game font-extrabold text-foreground border-b-2 border-dashed border-border-muted pb-3 tracking-wider uppercase">
-              {game.language === 'vi' ? 'HỘI PHÁP SƯ 🔑' : 'GUILD ACCOUNT 🔑'}
+              {t.guildAccount}
             </h3>
             
             {game.isLoggedIn ? (
               <div className="space-y-3 font-sans text-xs">
                 <div className="flex justify-between text-slate-550 dark:text-slate-400 font-bold uppercase">
-                  <span>{game.language === 'vi' ? 'TRẠNG THÁI:' : 'STATUS:'}</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-extrabold uppercase">{game.language === 'vi' ? 'ĐÃ ĐỒNG BỘ ☁️' : 'CLOUD SYNCED ☁️'}</span>
+                  <span>{t.status}:</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-extrabold uppercase">{t.cloudSynced}</span>
                 </div>
                 <div className="flex justify-between text-slate-550 dark:text-slate-400 font-bold uppercase">
-                  <span>{game.language === 'vi' ? 'TÀI KHOẢN:' : 'ACCOUNT:'}</span>
+                  <span>{t.account}:</span>
                   <span className="text-slate-800 dark:text-slate-200 font-extrabold truncate max-w-[150px]">{game.user?.email}</span>
                 </div>
                 <div className="text-[10px] text-slate-500 leading-relaxed pt-1 font-semibold uppercase tracking-wide">
-                  {game.language === 'vi' 
-                    ? 'Tiến trình của bạn đã được sao lưu tự động trên đám mây Supabase.' 
-                    : 'Your spellcasting progress is securely backed up in the Supabase cloud.'}
+                  {t.cloudSyncedDesc}
                 </div>
                 <Button
                   onClick={() => { playClickSound(); game.logout(); }}
                   variant="outline"
                   className="w-full mt-2 py-2.5 text-[10px]"
                 >
-                  {game.language === 'vi' ? 'ĐĂNG XUẤT KHỎI HỘI' : 'LEAVE GUILD (LOGOUT)'}
+                  {t.leaveGuild}
                 </Button>
               </div>
             ) : (
               <div className="space-y-3 font-sans text-xs">
                 <div className="flex justify-between text-slate-550 dark:text-slate-400 font-bold uppercase">
-                  <span>{game.language === 'vi' ? 'TRẠNG THÁI:' : 'STATUS:'}</span>
-                  <span className="text-retro-orange font-extrabold uppercase">{game.language === 'vi' ? 'CHƯA ĐĂNG NHẬP ⚠️' : 'GUEST MODE ⚠️'}</span>
+                  <span>{t.status}:</span>
+                  <span className="text-retro-orange font-extrabold uppercase">{t.guestMode}</span>
                 </div>
                 <p className="text-[10px] text-slate-500 leading-relaxed font-semibold uppercase tracking-wide">
-                  {game.language === 'vi'
-                    ? 'Tiến trình hiện tại chỉ được lưu ở trình duyệt này. Hãy đăng nhập bằng Google hoặc tạo tài khoản để lưu trữ vĩnh viễn và đồng bộ trên mọi thiết bị!'
-                    : 'Your progress is currently local-only. Register or log in via Google to sync your characters and streaks across all devices!'}
+                  {t.guestModeDesc}
                 </p>
                 <Button
                   onClick={() => { playClickSound(); game.setAuthModalOpen(true); }}
                   variant="primary"
                   className="w-full mt-2 py-2.5 text-[10px] tracking-wider"
                 >
-                  {game.language === 'vi' ? 'ĐĂNG NHẬP / ĐĂNG KÝ 🔑' : 'SIGN IN / REGISTER 🔑'}
+                  {t.signInRegister}
                 </Button>
               </div>
             )}
@@ -397,20 +360,20 @@ export default function Dashboard() {
                     <div className="flex-1 font-sans text-xs">
                       <div className="flex items-center justify-between">
                         <h4 className={`text-xs font-game font-extrabold ${isUnlocked ? 'text-retro-orange' : 'text-slate-500'}`}>
-                          {getBadgeName(badge.nameKey)}
+                          {t[badge.nameKey]}
                         </h4>
                         {isUnlocked ? (
                           <span className="text-[8px] font-game font-extrabold text-emerald-800 dark:text-emerald-300 bg-pop-green border-2 border-border px-1.5 py-0.2 rounded-full uppercase tracking-wider">
-                            UNLOCKED
+                            {t.unlockedBadge}
                           </span>
                         ) : (
                           <span className="text-[8px] font-game font-extrabold text-slate-500 border-2 border-border-muted px-1.5 py-0.2 rounded-full uppercase tracking-wider">
-                            LOCKED
+                            {t.lockedBadge}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-slate-550 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">{getBadgeDesc(badge.id)}</p>
-                      <p className="text-[9px] text-slate-500 mt-1.5 uppercase font-bold tracking-wider">Requirement: {getBadgeReq(badge.requirementKey)}</p>
+                      <p className="text-xs text-slate-550 dark:text-slate-400 mt-1.5 leading-relaxed font-medium">{t[badge.descKey]}</p>
+                      <p className="text-[9px] text-slate-500 mt-1.5 uppercase font-bold tracking-wider">{t.requirement}{t[badge.requirementKey]}</p>
                     </div>
                   </div>
                 );

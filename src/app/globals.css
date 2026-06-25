@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300..900&family=Plus+Jakarta+Sans:wght@300..800&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300..900&family=Plus+Jakarta+Sans:wght@300..800&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 
 @font-face {
   font-family: 'DFVN Pexel Grotesk';
   src: url('/fonts/DFVN-Pexel-Grotesk.ttf') format('truetype'),
-       url('/fonts/DFVN-Pexel-Grotesk.otf') format('opentype');
+    url('/fonts/DFVN-Pexel-Grotesk.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -21,7 +21,7 @@
   --border: #fefbfc;
   --border-muted: #3a251f;
   --shadow-color: #000000;
-  
+
   /* Pop Art Warm Colors - Dark variations */
   --color-pop-yellow: #eab308;
   --color-pop-orange: #ea580c;
@@ -29,7 +29,7 @@
   --color-pop-pink: #ec4899;
   --color-pop-green: #22c55e;
   --color-pop-purple: #a855f7;
-  
+
   --color-retro-orange: #ff6a1c;
   --color-retro-yellow: #ffda62;
   --color-retro-peach: #ffae56;
@@ -47,7 +47,7 @@
   --border: #22120b;
   --border-muted: #e6d3c3;
   --shadow-color: #22120b;
-  
+
   /* Pop Art Warm Colors - Light variations */
   --color-pop-yellow: #ffda62;
   --color-pop-orange: #fed7aa;
@@ -55,7 +55,7 @@
   --color-pop-pink: #fbcfe8;
   --color-pop-green: #a7fcbe;
   --color-pop-purple: #d8b4fe;
-  
+
   --color-retro-orange: #ff6a1c;
   --color-retro-yellow: #ffda62;
   --color-retro-peach: #ffae56;
@@ -68,17 +68,17 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-border: var(--border);
-  
+
   --font-sans: 'Plus Jakarta Sans', var(--font-geist-sans), sans-serif;
   --font-mono: 'Share Tech Mono', monospace;
-  --font-game: 'Outfit', sans-serif;
+  --font-game: 'Lexend', sans-serif;
   --font-tech: 'Plus Jakarta Sans', sans-serif;
-  
+
   --color-retro-orange: var(--color-retro-orange);
   --color-retro-yellow: var(--color-retro-yellow);
   --color-retro-peach: var(--color-retro-peach);
   --color-retro-pink: var(--color-retro-pink);
-  
+
   --color-pop-yellow: var(--color-pop-yellow);
   --color-pop-orange: var(--color-pop-orange);
   --color-pop-peach: var(--color-pop-peach);
@@ -103,13 +103,13 @@ body {
 /* Dynamic pop art card background grids */
 .game-grid {
   background-size: 32px 32px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 106, 28, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 106, 28, 0.04) 1px, transparent 1px);
 }
 
 .light .game-grid {
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 106, 28, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 106, 28, 0.03) 1px, transparent 1px);
 }
@@ -119,7 +119,8 @@ body {
   background-color: var(--card);
   border: 3px solid var(--border);
   box-shadow: 4px 4px 0px var(--shadow-color);
-  border-radius: 1.25rem; /* rounded-2xl */
+  border-radius: 1.25rem;
+  /* rounded-2xl */
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -164,7 +165,8 @@ body {
 .pixel-btn {
   border: 3px solid var(--border);
   box-shadow: 4px 4px 0px var(--shadow-color);
-  border-radius: 0.75rem; /* rounded-xl */
+  border-radius: 0.75rem;
+  /* rounded-xl */
   transition: all 0.08s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
@@ -178,8 +180,13 @@ body {
 
 /* Animations */
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin-slow {
@@ -212,6 +219,6 @@ body {
   background-color: var(--card);
   border: 3px solid var(--border);
   border-radius: 1.25rem;
-  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.05);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05);
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }

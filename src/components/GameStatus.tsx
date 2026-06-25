@@ -73,7 +73,7 @@ export default function GameStatus({
   return (
     <div className="w-full bg-card border-b-[3px] border-border py-3 px-4 md:px-8 sticky top-0 z-50 shadow-[0_4px_0px_var(--shadow-color)]">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        
+
         {/* Left: Player Profile & Stats */}
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-3">
@@ -81,7 +81,7 @@ export default function GameStatus({
             <div className="w-12 h-12 rounded-full overflow-hidden shrink-0 border-[3px] border-border shadow-[2px_2px_0px_var(--shadow-color)] bg-card">
               {getAvatarSvg(avatarId, 'w-full h-full')}
             </div>
-            
+
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-game font-extrabold text-foreground text-sm tracking-wide uppercase">{nickname}</span>
@@ -96,12 +96,11 @@ export default function GameStatus({
           </div>
 
           {/* Streak indicator */}
-          <div 
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border-[3px] border-border font-game text-xs font-extrabold uppercase shadow-[2px_2px_0px_var(--shadow-color)] ${
-              streak > 0 
-                ? 'bg-pop-yellow text-slate-900' 
+          <div
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border-[3px] border-border font-game text-xs font-extrabold uppercase shadow-[2px_2px_0px_var(--shadow-color)] ${streak > 0
+                ? 'bg-pop-yellow text-slate-900'
                 : 'bg-card text-slate-400'
-            }`}
+              }`}
           >
             <Flame className={`w-4 h-4 ${streak > 0 ? 'animate-bounce text-retro-orange' : ''}`} />
             <span>{streak} {t.streak}</span>
@@ -119,18 +118,17 @@ export default function GameStatus({
 
         {/* Right: Lives, Language & Sound Controls */}
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
-          
+
           {/* Hearts / Lives */}
           <div className="flex items-center gap-1.5">
             <div className="flex items-center gap-1">
               {[1, 2, 3].map((heartIdx) => (
                 <Heart
                   key={heartIdx}
-                  className={`w-5 h-5 transition-all duration-300 ${
-                    heartIdx <= lives
+                  className={`w-5 h-5 transition-all duration-300 ${heartIdx <= lives
                       ? 'fill-red-500 text-red-500 drop-shadow-[1px_1px_0px_#000]'
                       : 'text-slate-300 dark:text-slate-800 scale-90 opacity-20'
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -145,7 +143,7 @@ export default function GameStatus({
                 >
                   <PlusCircle className="w-4 h-4" />
                 </button>
-                
+
                 {showHealTooltip && (
                   <div className="absolute right-0 top-8 bg-card border-[3px] border-border text-foreground text-[10px] px-3 py-2 rounded-xl shadow-[4px_4px_0px_var(--shadow-color)] w-44 font-sans font-bold z-50">
                     {t.potionsUse}
@@ -171,7 +169,7 @@ export default function GameStatus({
                   size="sm"
                   className="px-2.5 py-1.5 text-[9px]"
                 >
-                  {language === 'vi' ? 'ĐĂNG XUẤT' : 'LOGOUT'}
+                  {t.logout}
                 </Button>
               </div>
             ) : (
@@ -181,7 +179,7 @@ export default function GameStatus({
                 size="sm"
                 className="px-3 py-1.5 text-[9px]"
               >
-                {language === 'vi' ? 'ĐĂNG NHẬP 🔑' : 'SIGN IN 🔑'}
+                {t.signIn}
               </Button>
             )}
 
@@ -200,14 +198,13 @@ export default function GameStatus({
             <Button
               onClick={() => { playClickSound(); onToggleTheme(); }}
               variant="outline"
-              size="sm"
-              className="p-1.5 flex items-center justify-center shrink-0 w-8 h-8 rounded-xl"
+              size="icon"
               title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-retro-yellow" />
+                <Sun className="w-4 h-4 text-retro-yellow stroke-[2.5]" />
               ) : (
-                <Moon className="w-4 h-4 text-retro-orange" />
+                <Moon className="w-4 h-4 text-retro-orange stroke-[2.5]" />
               )}
             </Button>
 
