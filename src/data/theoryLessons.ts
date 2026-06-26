@@ -370,6 +370,110 @@ async function collectGold() {
 \`\`\`
 `
   },
+  {
+    id: "js-theory-7",
+    titleEn: "7. ES6 Classes & Inheritance",
+    titleVi: "7. Lớp ES6 & Kế Thừa",
+    category: "JS",
+    readTime: "4 min",
+    contentEn: `### JavaScript ES6 Classes
+In ES6, JavaScript introduced class syntax to write cleaner Object-Oriented Programming (OOP) code, though it is still based on prototypes under the hood.
+
+- **Constructor**: A special method to initialize new objects created with a class.
+- **extends**: Used to create a child class that inherits methods and properties from a parent class.
+- **super()**: Used inside the constructor of a child class to call the parent class's constructor.
+
+\`\`\`javascript
+class Hero {
+  constructor(name, power) {
+    this.name = name;
+    this.power = power;
+  }
+  greet() {
+    return this.name + " casts " + this.power;
+  }
+}
+
+class FireMage extends Hero {
+  constructor(name) {
+    super(name, "Fireball"); // calls parent constructor
+  }
+}
+
+const player = new FireMage("Ignis");
+console.log(player.greet()); // "Ignis casts Fireball"
+\`\`\`
+`,
+    contentVi: `### Lớp ES6 Trong JavaScript
+Trong phiên bản ES6, JavaScript giới thiệu cú pháp lớp (class) giúp viết mã nguồn theo phong cách Hướng Đối Tượng (OOP) sạch sẽ hơn, dù bản chất bên dưới vẫn chạy dựa trên cơ chế Prototype.
+
+- **Constructor**: Phương thức đặc biệt dùng để khởi tạo thuộc tính khi một đối tượng mới được tạo ra từ lớp.
+- **extends**: Từ khóa dùng để định nghĩa lớp con kế thừa toàn bộ các phương thức và thuộc tính của lớp cha.
+- **super()**: Được gọi bên trong hàm constructor của lớp con để kích hoạt hàm khởi tạo của lớp cha.
+
+\`\`\`javascript
+class Hero {
+  constructor(name, power) {
+    this.name = name;
+    this.power = power;
+  }
+  greet() {
+    return this.name + " thi triển " + this.power;
+  }
+}
+
+class FireMage extends Hero {
+  constructor(name) {
+    super(name, "Cầu Lửa"); // gọi constructor của lớp cha
+  }
+}
+
+const player = new FireMage("Ignis");
+console.log(player.greet()); // "Ignis thi triển Cầu Lửa"
+\`\`\`
+`
+  },
+  {
+    id: "js-theory-8",
+    titleEn: "8. Error Handling & Try-Catch",
+    titleVi: "8. Xử Lý Lỗi & Try-Catch",
+    category: "JS",
+    readTime: "3 min",
+    contentEn: `### JavaScript Errors & Try-Catch
+Errors happen! A syntax typo, a network outage, or a missing variable can crash your spellcasting program. We ward off crashes using \`try...catch\`.
+
+- **try**: The block where you run code that might throw an error.
+- **catch**: The block that handles the error if one is thrown in the try block.
+- **finally**: An optional block that runs no matter what (success or failure).
+
+\`\`\`javascript
+try {
+  castSpell(); // throws error if undefined
+} catch (error) {
+  console.log("Warded error: " + error.message);
+} finally {
+  console.log("Mana shield active");
+}
+\`\`\`
+`,
+    contentVi: `### Xử Lý Lỗi & Try-Catch
+Lỗi luôn có thể xảy ra! Một lỗi gõ sai cú pháp, mất kết nối mạng hoặc biến bị thiếu có thể làm sập chương trình của bạn. Chúng ta dựng rào chắn bảo vệ bằng \`try...catch\`.
+
+- **try**: Khối chứa đoạn mã có khả năng phát sinh lỗi khi thực thi.
+- **catch**: Khối xử lý lỗi khi có bất kỳ ngoại lệ nào được ném ra từ khối try.
+- **finally**: Khối tùy chọn luôn luôn được chạy dù khối try có gặp lỗi hay không.
+
+\`\`\`javascript
+try {
+  castSpell(); // ném ra lỗi nếu hàm chưa được định nghĩa
+} catch (error) {
+  console.log("Đã chắn lỗi: " + error.message);
+} finally {
+  console.log("Lá chắn mana luôn được kích hoạt");
+}
+\`\`\`
+`
+  },
 
   // === TYPESCRIPT TRACK ===
   {
@@ -637,6 +741,112 @@ TypeScript tích hợp sẵn các kiểu tiện ích giúp biến đổi nhanh c
 - **Readonly<T>:** Biến tất cả các thuộc tính của T thành chỉ đọc (readonly).
 - **Record<K, T>:** Tạo cấu trúc đối tượng có khóa là K và giá trị là T.
 - **Omit<T, K>:** Loại bỏ các thuộc tính khóa K ra khỏi kiểu dữ liệu T.
+`
+  },
+  {
+    id: "ts-theory-6",
+    titleEn: "6. Unions, Intersections & Type Guards",
+    titleVi: "6. Kiểu Hợp, Kiểu Giao & Trình Bảo Vệ Kiểu",
+    category: "TS",
+    readTime: "4 min",
+    contentEn: `### Union and Intersection Types
+TypeScript offers powerful operators to combine types:
+- **Union Types (|)**: Represents a value that can be one of several types.
+- **Intersection Types (&)**: Combines multiple types into one, requiring all properties.
+
+\`\`\`typescript
+type Id = string | number; // Union
+type Mage = Character & { spellSlots: number }; // Intersection
+\`\`\`
+
+### Type Guards & Narrowing
+When using unions, TypeScript requires you to "narrow" the type before running type-specific methods. You can narrow types using:
+- **typeof**: For primitive types (\`typeof value === "string"\`).
+- **instanceof**: For class instances.
+- **in**: To check if a property exists in an object.
+
+\`\`\`typescript
+function formatId(id: Id) {
+  if (typeof id === "string") {
+    return id.toUpperCase(); // narrowed to string
+  }
+  return id.toFixed(0); // narrowed to number
+}
+\`\`\`
+`,
+    contentVi: `### Kiểu Hợp & Kiểu Giao
+TypeScript cung cấp các toán tử mạnh mẽ để kết hợp các kiểu dữ liệu:
+- **Kiểu Hợp (Union Types - |)**: Đại diện cho một giá trị có thể là một trong nhiều kiểu khác nhau.
+- **Kiểu Giao (Intersection Types - &)**: Gộp nhiều kiểu dữ liệu thành một, bắt buộc đối tượng phải có đủ tất cả thuộc tính của các kiểu con.
+
+\`\`\`typescript
+type Id = string | number; // Union
+type Mage = Character & { spellSlots: number }; // Intersection
+\`\`\`
+
+### Trình Bảo Vệ Kiểu & Thu Hẹp Kiểu
+Khi dùng kiểu hợp, TypeScript bắt buộc bạn phải "thu hẹp" (narrow) kiểu trước khi gọi các phương thức đặc trưng của kiểu đó. Bạn có thể thu hẹp kiểu bằng:
+- **typeof**: Cho các kiểu nguyên bản (\`typeof value === "string"\`).
+- **instanceof**: Cho các đối tượng khởi tạo từ class.
+- **in**: Kiểm tra xem một thuộc tính có tồn tại trong đối tượng hay không.
+
+\`\`\`typescript
+function formatId(id: Id) {
+  if (typeof id === "string") {
+    return id.toUpperCase(); // Đã được thu hẹp về kiểu string
+  }
+  return id.toFixed(0); // Đã được thu hẹp về kiểu number
+}
+\`\`\`
+`
+  },
+  {
+    id: "ts-theory-7",
+    titleEn: "7. Tuples & Readonly Properties",
+    titleVi: "7. Bộ Ngăn & Thuộc Tính Chỉ Đọc",
+    category: "TS",
+    readTime: "3 min",
+    contentEn: `### TypeScript Tuples
+A tuple is an array with a fixed number of elements and pre-defined types at specific indices.
+
+\`\`\`typescript
+let heroLoc: [number, number] = [10, 25]; // Tuple representing X, Y
+\`\`\`
+
+### Readonly Modifiers
+You can prevent properties of an object or interface from being changed after construction using the \`readonly\` modifier.
+
+\`\`\`typescript
+interface Relic {
+  readonly uuid: string;
+  name: string;
+}
+
+const amulet: Relic = { uuid: "abc-123", name: "Amulet of Fire" };
+// amulet.uuid = "def-456"; // Error: Cannot assign to 'uuid' because it is a read-only property.
+amulet.name = "Amulet of Water"; // Allowed!
+\`\`\`
+`,
+    contentVi: `### Bộ Ngăn (Tuples) Trong TypeScript
+Tuple là một mảng có số lượng phần tử cố định và kiểu dữ liệu được định nghĩa trước cho từng chỉ số vị trí (index).
+
+\`\`\`typescript
+let heroLoc: [number, number] = [10, 25]; // Tuple đại diện cho tọa độ X, Y
+\`\`\`
+
+### Công Cụ Sửa Đổi Readonly (Chỉ Đọc)
+Bạn có thể ngăn không cho các thuộc tính của đối tượng bị thay đổi giá trị sau khi được khởi tạo bằng cách dùng từ khóa \`readonly\`.
+
+\`\`\`typescript
+interface Relic {
+  readonly uuid: string;
+  name: string;
+}
+
+const amulet: Relic = { uuid: "abc-123", name: "Hộ Mệnh Phù Hỏa" };
+// amulet.uuid = "def-456"; // Lỗi: Không thể gán lại cho 'uuid' vì đây là thuộc tính chỉ đọc.
+amulet.name = "Hộ Mệnh Phù Thủy"; // Được phép!
+\`\`\`
 `
   }
 ];

@@ -129,10 +129,10 @@ export default function TheoryPage() {
     <div className="flex-1 bg-background text-foreground py-12 px-6 md:px-12 flex flex-col items-center font-sans">
       {/* Header section */}
       <div className="text-center max-w-2xl mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pop-purple/20 text-indigo-600 border-2 border-border text-[9px] font-game font-extrabold uppercase mb-4 tracking-wider shadow-[2px_2px_0px_var(--shadow-color)]">
+        {/* <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-pop-purple/20 text-indigo-600 border-2 border-border text-[9px] font-game font-extrabold uppercase mb-4 tracking-wider shadow-[2px_2px_0px_var(--shadow-color)]">
           <BookOpen className="w-3.5 h-3.5 stroke-[2.5]" />
           {t.navTheory}
-        </div>
+        </div> */}
         <h2 className="text-2xl md:text-4xl font-game font-extrabold text-foreground uppercase drop-shadow-[2px_2px_0px_var(--shadow-color)]">
           {t.theoryTitle}
         </h2>
@@ -159,11 +159,10 @@ export default function TheoryPage() {
             playClickSound();
             setActiveTab('JS');
           }}
-          className={`px-6 py-3 font-game font-extrabold uppercase border-[3px] border-border rounded-xl shadow-[3px_3px_0px_var(--shadow-color)] transition-all select-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer flex items-center gap-2 text-xs ${
-            activeTab === 'JS'
+          className={`px-6 py-3 font-game font-extrabold uppercase border-[3px] border-border rounded-xl shadow-[3px_3px_0px_var(--shadow-color)] transition-all select-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer flex items-center gap-2 text-xs ${activeTab === 'JS'
               ? 'bg-pop-yellow text-slate-900'
               : 'bg-card text-slate-500 hover:text-foreground'
-          }`}
+            }`}
         >
           <span className="w-2.5 h-2.5 rounded-full bg-slate-900" />
           JavaScript
@@ -174,11 +173,10 @@ export default function TheoryPage() {
             playClickSound();
             setActiveTab('TS');
           }}
-          className={`px-6 py-3 font-game font-extrabold uppercase border-[3px] border-border rounded-xl shadow-[3px_3px_0px_var(--shadow-color)] transition-all select-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer flex items-center gap-2 text-xs ${
-            activeTab === 'TS'
+          className={`px-6 py-3 font-game font-extrabold uppercase border-[3px] border-border rounded-xl shadow-[3px_3px_0px_var(--shadow-color)] transition-all select-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer flex items-center gap-2 text-xs ${activeTab === 'TS'
               ? 'bg-pop-purple text-white border-border'
               : 'bg-card text-slate-500 hover:text-foreground'
-          }`}
+            }`}
         >
           <span className="w-2.5 h-2.5 rounded-full bg-white" />
           TypeScript
@@ -205,11 +203,10 @@ export default function TheoryPage() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span
-                      className={`text-[8px] font-game font-extrabold border-2 px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
-                        isDone
+                      className={`text-[8px] font-game font-extrabold border-2 px-2.5 py-0.5 rounded-full uppercase tracking-wider ${isDone
                           ? 'border-emerald-800 text-emerald-800 bg-white/40'
                           : 'border-border text-slate-500 bg-card/40'
-                      }`}
+                        }`}
                     >
                       {activeTab === 'JS' ? 'JavaScript' : 'TypeScript'}
                     </span>
@@ -220,9 +217,8 @@ export default function TheoryPage() {
                   </div>
 
                   <CardTitle
-                    className={`text-sm tracking-wide leading-relaxed font-game font-extrabold ${
-                      isDone ? 'text-emerald-950' : 'text-foreground'
-                    }`}
+                    className={`text-sm tracking-wide leading-relaxed font-game font-extrabold ${isDone ? 'text-emerald-950' : 'text-foreground'
+                      }`}
                   >
                     {game.language === 'vi' ? lesson.titleVi : lesson.titleEn}
                   </CardTitle>
@@ -232,11 +228,10 @@ export default function TheoryPage() {
                   {/* Status checkbox indicator */}
                   <button
                     onClick={(e) => handleToggleDone(lesson.id, e)}
-                    className={`flex items-center gap-2 text-[10px] font-game font-extrabold uppercase transition-all select-none cursor-pointer border-[3px] border-border py-1.5 px-3 rounded-xl shadow-[2px_2px_0px_var(--shadow-color)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
-                      isDone
+                    className={`flex items-center gap-2 text-[10px] font-game font-extrabold uppercase transition-all select-none cursor-pointer border-[3px] border-border py-1.5 px-3 rounded-xl shadow-[2px_2px_0px_var(--shadow-color)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${isDone
                         ? 'bg-pop-yellow text-slate-900'
                         : 'bg-card text-slate-500 hover:text-foreground'
-                    }`}
+                      }`}
                   >
                     {isDone ? (
                       <>
@@ -302,11 +297,10 @@ export default function TheoryPage() {
               <div className="p-6 border-t-[3px] border-dashed border-border-muted flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-950/10">
                 <button
                   onClick={() => handleToggleDone(selectedLesson.id)}
-                  className={`w-full md:w-auto flex items-center justify-center gap-2 text-xs font-game font-extrabold uppercase transition-all select-none cursor-pointer border-[3px] border-border py-3 px-6 rounded-xl shadow-[3px_3px_0px_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
-                    game.completedTheoryLessons.includes(selectedLesson.id)
+                  className={`w-full md:w-auto flex items-center justify-center gap-2 text-xs font-game font-extrabold uppercase transition-all select-none cursor-pointer border-[3px] border-border py-3 px-6 rounded-xl shadow-[3px_3px_0px_var(--shadow-color)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${game.completedTheoryLessons.includes(selectedLesson.id)
                       ? 'bg-pop-green text-slate-900 border-border'
                       : 'bg-pop-yellow text-slate-900 border-border'
-                  }`}
+                    }`}
                 >
                   <Check className="w-4 h-4 stroke-[3]" />
                   <span>{t.theoryDone}</span>
