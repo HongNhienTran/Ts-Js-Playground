@@ -246,9 +246,9 @@ export function useGameState() {
 
 
   // Action: Add XP
-  const addXP = (amount: number) => {
-    const newXp = state.xp + amount;
-    let newLevel = state.level;
+  const addXP = (amount: number, currentState: GameState = state) => {
+    const newXp = currentState.xp + amount;
+    let newLevel = currentState.level;
     let leveledUp = false;
 
     while (newXp >= getXPForNextLevel(newLevel)) {
@@ -257,10 +257,10 @@ export function useGameState() {
     }
 
     const today = new Date().toISOString().split('T')[0];
-    let newStreak = state.streak;
-    if (state.lastActiveDate !== today) {
-      if (state.lastActiveDate) {
-        const lastDate = new Date(state.lastActiveDate);
+    let newStreak = currentState.streak;
+    if (currentState.lastActiveDate !== today) {
+      if (currentState.lastActiveDate) {
+        const lastDate = new Date(currentState.lastActiveDate);
         const todayDate = new Date(today);
         const diffTime = Math.abs(todayDate.getTime() - lastDate.getTime());
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -275,7 +275,7 @@ export function useGameState() {
     }
 
     const updatedState: GameState = {
-      ...state,
+      ...currentState,
       xp: newXp,
       level: newLevel,
       streak: newStreak,
@@ -320,12 +320,7 @@ export function useGameState() {
       completedLessons: [...state.completedLessons, lessonId]
     };
     
-    setState(updatedState);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('codegame_state', JSON.stringify(updatedState));
-    }
-    
-    addXP(xpReward);
+    addXP(xpReward, updatedState);
   };
 
   // Action: Complete a challenge
@@ -340,12 +335,7 @@ export function useGameState() {
       completedChallenges: [...state.completedChallenges, challengeId]
     };
 
-    setState(updatedState);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('codegame_state', JSON.stringify(updatedState));
-    }
-    
-    addXP(xpReward);
+    addXP(xpReward, updatedState);
   };
 
   // Action: Toggle Sound
